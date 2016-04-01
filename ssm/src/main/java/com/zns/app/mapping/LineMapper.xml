@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zns.app.dao.ILineDao" >
+  <resultMap id="BaseResultMap" type="com.zns.app.bean.Line" >
+    <id column="lind_id" property="lindId" jdbcType="INTEGER" />
+    <result column="exam_info_id" property="examInfoId" jdbcType="INTEGER" />
+    <result column="line_pic" property="linePic" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    lind_id, exam_info_id, line_pic
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_line_info
+    where lind_id = #{lindId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_line_info
+    where lind_id = #{lindId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zns.app.bean.Line" >
+    insert into t_line_info (lind_id, exam_info_id, line_pic
+      )
+    values (#{lindId,jdbcType=INTEGER}, #{examInfoId,jdbcType=INTEGER}, #{linePic,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zns.app.bean.Line" >
+    insert into t_line_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lindId != null" >
+        lind_id,
+      </if>
+      <if test="examInfoId != null" >
+        exam_info_id,
+      </if>
+      <if test="linePic != null" >
+        line_pic,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lindId != null" >
+        #{lindId,jdbcType=INTEGER},
+      </if>
+      <if test="examInfoId != null" >
+        #{examInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="linePic != null" >
+        #{linePic,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zns.app.bean.Line" >
+    update t_line_info
+    <set >
+      <if test="examInfoId != null" >
+        exam_info_id = #{examInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="linePic != null" >
+        line_pic = #{linePic,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where lind_id = #{lindId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zns.app.bean.Line" >
+    update t_line_info
+    set exam_info_id = #{examInfoId,jdbcType=INTEGER},
+      line_pic = #{linePic,jdbcType=VARCHAR}
+    where lind_id = #{lindId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByExamId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_line_info
+    where exam_info_id = #{examId,jdbcType=INTEGER}
+  </select>
+</mapper>

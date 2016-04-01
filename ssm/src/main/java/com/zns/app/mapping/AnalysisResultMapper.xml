@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zns.app.dao.IAnalysisResultDao" >
+  <resultMap id="BaseResultMap" type="com.zns.app.bean.AnalysisResult" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="userNo" property="userno" jdbcType="VARCHAR" />
+    <result column="questioneid" property="questioneid" jdbcType="INTEGER" />
+    <result column="cost_saving" property="costSaving" jdbcType="INTEGER" />
+    <result column="customer_basis" property="customerBasis" jdbcType="VARCHAR" />
+    <result column="customer_sequence_user" property="customerSequenceUser" jdbcType="VARCHAR" />
+    <result column="effective_user" property="effectiveUser" jdbcType="VARCHAR" />
+    <result column="examination_user_abc" property="examinationUserAbc" jdbcType="VARCHAR" />
+    <result column="optimalLine_user" property="optimallineUser" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, userNo, questioneid, cost_saving, customer_basis, customer_sequence_user, effective_user, 
+    examination_user_abc, optimalLine_user
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_analysis_result
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_analysis_result
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zns.app.bean.AnalysisResult" >
+    insert into t_analysis_result (id, userNo, questioneid, 
+      cost_saving, customer_basis, customer_sequence_user, 
+      effective_user, examination_user_abc, optimalLine_user
+      )
+    values (#{id,jdbcType=INTEGER}, #{userno,jdbcType=VARCHAR}, #{questioneid,jdbcType=INTEGER}, 
+      #{costSaving,jdbcType=INTEGER}, #{customerBasis,jdbcType=VARCHAR}, #{customerSequenceUser,jdbcType=VARCHAR}, 
+      #{effectiveUser,jdbcType=VARCHAR}, #{examinationUserAbc,jdbcType=VARCHAR}, #{optimallineUser,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zns.app.bean.AnalysisResult" >
+    insert into t_analysis_result
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userno != null" >
+        userNo,
+      </if>
+      <if test="questioneid != null" >
+        questioneid,
+      </if>
+      <if test="costSaving != null" >
+        cost_saving,
+      </if>
+      <if test="customerBasis != null" >
+        customer_basis,
+      </if>
+      <if test="customerSequenceUser != null" >
+        customer_sequence_user,
+      </if>
+      <if test="effectiveUser != null" >
+        effective_user,
+      </if>
+      <if test="examinationUserAbc != null" >
+        examination_user_abc,
+      </if>
+      <if test="optimallineUser != null" >
+        optimalLine_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userno != null" >
+        #{userno,jdbcType=VARCHAR},
+      </if>
+      <if test="questioneid != null" >
+        #{questioneid,jdbcType=INTEGER},
+      </if>
+      <if test="costSaving != null" >
+        #{costSaving,jdbcType=INTEGER},
+      </if>
+      <if test="customerBasis != null" >
+        #{customerBasis,jdbcType=VARCHAR},
+      </if>
+      <if test="customerSequenceUser != null" >
+        #{customerSequenceUser,jdbcType=VARCHAR},
+      </if>
+      <if test="effectiveUser != null" >
+        #{effectiveUser,jdbcType=VARCHAR},
+      </if>
+      <if test="examinationUserAbc != null" >
+        #{examinationUserAbc,jdbcType=VARCHAR},
+      </if>
+      <if test="optimallineUser != null" >
+        #{optimallineUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zns.app.bean.AnalysisResult" >
+    update t_analysis_result
+    <set >
+      <if test="userno != null" >
+        userNo = #{userno,jdbcType=VARCHAR},
+      </if>
+      <if test="questioneid != null" >
+        questioneid = #{questioneid,jdbcType=INTEGER},
+      </if>
+      <if test="costSaving != null" >
+        cost_saving = #{costSaving,jdbcType=INTEGER},
+      </if>
+      <if test="customerBasis != null" >
+        customer_basis = #{customerBasis,jdbcType=VARCHAR},
+      </if>
+      <if test="customerSequenceUser != null" >
+        customer_sequence_user = #{customerSequenceUser,jdbcType=VARCHAR},
+      </if>
+      <if test="effectiveUser != null" >
+        effective_user = #{effectiveUser,jdbcType=VARCHAR},
+      </if>
+      <if test="examinationUserAbc != null" >
+        examination_user_abc = #{examinationUserAbc,jdbcType=VARCHAR},
+      </if>
+      <if test="optimallineUser != null" >
+        optimalLine_user = #{optimallineUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zns.app.bean.AnalysisResult" >
+    update t_analysis_result
+    set userNo = #{userno,jdbcType=VARCHAR},
+      questioneid = #{questioneid,jdbcType=INTEGER},
+      cost_saving = #{costSaving,jdbcType=INTEGER},
+      customer_basis = #{customerBasis,jdbcType=VARCHAR},
+      customer_sequence_user = #{customerSequenceUser,jdbcType=VARCHAR},
+      effective_user = #{effectiveUser,jdbcType=VARCHAR},
+      examination_user_abc = #{examinationUserAbc,jdbcType=VARCHAR},
+      optimalLine_user = #{optimallineUser,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

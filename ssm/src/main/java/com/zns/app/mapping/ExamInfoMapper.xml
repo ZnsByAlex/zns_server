@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zns.app.dao.IExamInfoDao" >
+  <resultMap id="BaseResultMap" type="com.zns.app.bean.ExamInfo" >
+    <id column="recordId" property="recordid" jdbcType="INTEGER" />
+    <result column="examinationNo" property="examinationno" jdbcType="VARCHAR" />
+    <result column="examinationtitle" property="examinationtitle" jdbcType="VARCHAR" />
+    <result column="examInfoUrl" property="examinfourl" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    recordId, examinationNo, examinationtitle, examInfoUrl
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_examination_info
+    where recordId = #{recordid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_examination_info
+    where recordId = #{recordid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zns.app.bean.ExamInfo" >
+    insert into t_examination_info (recordId, examinationNo, examinationtitle, 
+      examInfoUrl)
+    values (#{recordid,jdbcType=INTEGER}, #{examinationno,jdbcType=VARCHAR}, #{examinationtitle,jdbcType=VARCHAR}, 
+      #{examinfourl,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zns.app.bean.ExamInfo" >
+    insert into t_examination_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="recordid != null" >
+        recordId,
+      </if>
+      <if test="examinationno != null" >
+        examinationNo,
+      </if>
+      <if test="examinationtitle != null" >
+        examinationtitle,
+      </if>
+      <if test="examinfourl != null" >
+        examInfoUrl,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="recordid != null" >
+        #{recordid,jdbcType=INTEGER},
+      </if>
+      <if test="examinationno != null" >
+        #{examinationno,jdbcType=VARCHAR},
+      </if>
+      <if test="examinationtitle != null" >
+        #{examinationtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="examinfourl != null" >
+        #{examinfourl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zns.app.bean.ExamInfo" >
+    update t_examination_info
+    <set >
+      <if test="examinationno != null" >
+        examinationNo = #{examinationno,jdbcType=VARCHAR},
+      </if>
+      <if test="examinationtitle != null" >
+        examinationtitle = #{examinationtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="examinfourl != null" >
+        examInfoUrl = #{examinfourl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where recordId = #{recordid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zns.app.bean.ExamInfo" >
+    update t_examination_info
+    set examinationNo = #{examinationno,jdbcType=VARCHAR},
+      examinationtitle = #{examinationtitle,jdbcType=VARCHAR},
+      examInfoUrl = #{examinfourl,jdbcType=VARCHAR}
+    where recordId = #{recordid,jdbcType=INTEGER}
+  </update>
+  
+  <select id="queryExamInfoList" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from t_examination_info 
+  
+  </select>
+</mapper>

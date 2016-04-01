@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zns.app.dao.IZutuoGoodsDao" >
+  <resultMap id="BaseResultMap" type="com.zns.app.bean.ZutuoGoods" >
+    <id column="goodsNo" property="goodsno" jdbcType="VARCHAR" />
+    <result column="examId" property="examid" jdbcType="INTEGER" />
+    <result column="goodsName" property="goodsname" jdbcType="VARCHAR" />
+    <result column="goodsNum" property="goodsnum" jdbcType="VARCHAR" />
+    <result column="receptorderNo" property="receptorderno" jdbcType="VARCHAR" />
+    <result column="orderFromNo" property="orderfromno" jdbcType="VARCHAR" />
+    <result column="goodsUnit" property="goodsunit" jdbcType="VARCHAR" />
+    <result column="spec" property="spec" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    goodsNo, examId, goodsName, goodsNum, receptorderNo, orderFromNo, goodsUnit, spec
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_zutuo_goods
+    where goodsNo = #{goodsno,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByExamId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_zutuo_goods
+    where examId = #{examId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_zutuo_goods
+    where goodsNo = #{goodsno,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zns.app.bean.ZutuoGoods" >
+    insert into t_zutuo_goods (goodsNo, examId, goodsName, 
+      goodsNum, receptorderNo, orderFromNo, 
+      goodsUnit, spec)
+    values (#{goodsno,jdbcType=VARCHAR}, #{examid,jdbcType=INTEGER}, #{goodsname,jdbcType=VARCHAR}, 
+      #{goodsnum,jdbcType=VARCHAR}, #{receptorderno,jdbcType=VARCHAR}, #{orderfromno,jdbcType=VARCHAR}, 
+      #{goodsunit,jdbcType=VARCHAR}, #{spec,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zns.app.bean.ZutuoGoods" >
+    insert into t_zutuo_goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsno != null" >
+        goodsNo,
+      </if>
+      <if test="examid != null" >
+        examId,
+      </if>
+      <if test="goodsname != null" >
+        goodsName,
+      </if>
+      <if test="goodsnum != null" >
+        goodsNum,
+      </if>
+      <if test="receptorderno != null" >
+        receptorderNo,
+      </if>
+      <if test="orderfromno != null" >
+        orderFromNo,
+      </if>
+      <if test="goodsunit != null" >
+        goodsUnit,
+      </if>
+      <if test="spec != null" >
+        spec,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsno != null" >
+        #{goodsno,jdbcType=VARCHAR},
+      </if>
+      <if test="examid != null" >
+        #{examid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsname != null" >
+        #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsnum != null" >
+        #{goodsnum,jdbcType=VARCHAR},
+      </if>
+      <if test="receptorderno != null" >
+        #{receptorderno,jdbcType=VARCHAR},
+      </if>
+      <if test="orderfromno != null" >
+        #{orderfromno,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsunit != null" >
+        #{goodsunit,jdbcType=VARCHAR},
+      </if>
+      <if test="spec != null" >
+        #{spec,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zns.app.bean.ZutuoGoods" >
+    update t_zutuo_goods
+    <set >
+      <if test="examid != null" >
+        examId = #{examid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsname != null" >
+        goodsName = #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsnum != null" >
+        goodsNum = #{goodsnum,jdbcType=VARCHAR},
+      </if>
+      <if test="receptorderno != null" >
+        receptorderNo = #{receptorderno,jdbcType=VARCHAR},
+      </if>
+      <if test="orderfromno != null" >
+        orderFromNo = #{orderfromno,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsunit != null" >
+        goodsUnit = #{goodsunit,jdbcType=VARCHAR},
+      </if>
+      <if test="spec != null" >
+        spec = #{spec,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where goodsNo = #{goodsno,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zns.app.bean.ZutuoGoods" >
+    update t_zutuo_goods
+    set examId = #{examid,jdbcType=INTEGER},
+      goodsName = #{goodsname,jdbcType=VARCHAR},
+      goodsNum = #{goodsnum,jdbcType=VARCHAR},
+      receptorderNo = #{receptorderno,jdbcType=VARCHAR},
+      orderFromNo = #{orderfromno,jdbcType=VARCHAR},
+      goodsUnit = #{goodsunit,jdbcType=VARCHAR},
+      spec = #{spec,jdbcType=VARCHAR}
+    where goodsNo = #{goodsno,jdbcType=VARCHAR}
+  </update>
+</mapper>

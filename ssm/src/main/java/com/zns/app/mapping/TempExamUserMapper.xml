@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zns.app.dao.ITempExamUserDao" >
+  <resultMap id="BaseResultMap" type="com.zns.app.bean.TempExamUser" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="userNo" property="userNo" jdbcType="VARCHAR" />
+    <result column="examinationid" property="examinationid" jdbcType="INTEGER" />
+    <result column="score" property="score" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, userNo, examinationid, score
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_examination_user_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_examination_user_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zns.app.bean.TempExamUser" >
+    insert into t_examination_user_info (id, userNo, examinationid, 
+      score)
+    values (#{id,jdbcType=INTEGER}, #{userNo,jdbcType=VARCHAR}, #{examinationid,jdbcType=INTEGER}, 
+      #{score,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zns.app.bean.TempExamUser" >
+    insert into t_examination_user_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userid != null" >
+        userNo,
+      </if>
+      <if test="examinationid != null" >
+        examinationid,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="examinationid != null" >
+        #{examinationid,jdbcType=INTEGER},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zns.app.bean.TempExamUser" >
+    update t_examination_user_info
+    <set >
+      <if test="userid != null" >
+        userNo = #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="examinationid != null" >
+        examinationid = #{examinationid,jdbcType=INTEGER},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zns.app.bean.TempExamUser" >
+    update t_examination_user_info
+    set userNo = #{userNo,jdbcType=VARCHAR},
+      examinationid = #{examinationid,jdbcType=INTEGER},
+      score = #{score,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zns.app.dao.IOrderDao" >
+  <resultMap id="BaseResultMap" type="com.zns.app.bean.Order" >
+    <id column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="exam_info_id" property="examInfoId" jdbcType="INTEGER" />
+    <result column="order_no" property="orderNo" jdbcType="INTEGER" />
+    <result column="order_effective" property="orderEffective" jdbcType="VARCHAR" />
+    <result column="order_type" property="orderType" jdbcType="VARCHAR" />
+    <result column="customer_name" property="customerName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    order_id, exam_info_id, order_no, order_effective, order_type, customer_name
+  </sql>
+  <select id="getOrderByExamId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_order_effec_info
+    where exam_info_id = #{examId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_order_effec_info
+    where exam_info_id = #{examId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_order_effec_info
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zns.app.bean.Order" >
+    insert into t_order_effec_info (order_id, exam_info_id, order_no, 
+      order_effective, order_type, customer_name
+      )
+    values (#{orderId,jdbcType=INTEGER}, #{examInfoId,jdbcType=INTEGER}, #{orderNo,jdbcType=INTEGER}, 
+      #{orderEffective,jdbcType=VARCHAR}, #{orderType,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  
+  <insert id="insertSelective" parameterType="com.zns.app.bean.Order" >
+    insert into t_order_effec_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="examInfoId != null" >
+        exam_info_id,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="orderEffective != null" >
+        order_effective,
+      </if>
+      <if test="orderType != null" >
+        order_type,
+      </if>
+      <if test="customerName != null" >
+        customer_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="examInfoId != null" >
+        #{examInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=INTEGER},
+      </if>
+      <if test="orderEffective != null" >
+        #{orderEffective,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null" >
+        #{orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zns.app.bean.Order" >
+    update t_order_effec_info
+    <set >
+      <if test="examInfoId != null" >
+        exam_info_id = #{examInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=INTEGER},
+      </if>
+      <if test="orderEffective != null" >
+        order_effective = #{orderEffective,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null" >
+        order_type = #{orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zns.app.bean.Order" >
+    update t_order_effec_info
+    set exam_info_id = #{examInfoId,jdbcType=INTEGER},
+      order_no = #{orderNo,jdbcType=INTEGER},
+      order_effective = #{orderEffective,jdbcType=VARCHAR},
+      order_type = #{orderType,jdbcType=VARCHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR}
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+</mapper>

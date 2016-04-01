@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zns.app.dao.IMaterialDao" >
+  <resultMap id="BaseResultMap" type="com.zns.app.bean.Material" >
+    <id column="material_id" property="materialId" jdbcType="INTEGER" />
+    <result column="exam_info_id" property="examInfoId" jdbcType="INTEGER" />
+    <result column="material_name" property="materialName" jdbcType="VARCHAR" />
+    <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+    <result column="material_specification" property="materialSpecification" jdbcType="VARCHAR" />
+    <result column="material_type" property="materialType" jdbcType="VARCHAR" />
+    <result column="order_from_no" property="orderFromNo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    material_id, exam_info_id, material_name, total_num, material_specification, material_type, 
+    order_from_no
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_material_info
+    where exam_info_id = #{examId,jdbcType=INTEGER}
+  </select>
+  <select id="getMaterialListByExamId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_material_info
+    where exam_info_id = #{examId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_material_info
+    where material_id = #{materialId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zns.app.bean.Material" >
+    insert into t_material_info (material_id, exam_info_id, material_name, 
+      total_num, material_specification, material_type, 
+      order_from_no)
+    values (#{materialId,jdbcType=INTEGER}, #{examInfoId,jdbcType=INTEGER}, #{materialName,jdbcType=VARCHAR}, 
+      #{totalNum,jdbcType=VARCHAR}, #{materialSpecification,jdbcType=VARCHAR}, #{materialType,jdbcType=VARCHAR}, 
+      #{orderFromNo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zns.app.bean.Material" >
+    insert into t_material_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="materialId != null" >
+        material_id,
+      </if>
+      <if test="examInfoId != null" >
+        exam_info_id,
+      </if>
+      <if test="materialName != null" >
+        material_name,
+      </if>
+      <if test="totalNum != null" >
+        total_num,
+      </if>
+      <if test="materialSpecification != null" >
+        material_specification,
+      </if>
+      <if test="materialType != null" >
+        material_type,
+      </if>
+      <if test="orderFromNo != null" >
+        order_from_no,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="materialId != null" >
+        #{materialId,jdbcType=INTEGER},
+      </if>
+      <if test="examInfoId != null" >
+        #{examInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="materialName != null" >
+        #{materialName,jdbcType=VARCHAR},
+      </if>
+      <if test="totalNum != null" >
+        #{totalNum,jdbcType=VARCHAR},
+      </if>
+      <if test="materialSpecification != null" >
+        #{materialSpecification,jdbcType=VARCHAR},
+      </if>
+      <if test="materialType != null" >
+        #{materialType,jdbcType=VARCHAR},
+      </if>
+      <if test="orderFromNo != null" >
+        #{orderFromNo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zns.app.bean.Material" >
+    update t_material_info
+    <set >
+      <if test="examInfoId != null" >
+        exam_info_id = #{examInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="materialName != null" >
+        material_name = #{materialName,jdbcType=VARCHAR},
+      </if>
+      <if test="totalNum != null" >
+        total_num = #{totalNum,jdbcType=VARCHAR},
+      </if>
+      <if test="materialSpecification != null" >
+        material_specification = #{materialSpecification,jdbcType=VARCHAR},
+      </if>
+      <if test="materialType != null" >
+        material_type = #{materialType,jdbcType=VARCHAR},
+      </if>
+      <if test="orderFromNo != null" >
+        order_from_no = #{orderFromNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where material_id = #{materialId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zns.app.bean.Material" >
+    update t_material_info
+    set exam_info_id = #{examInfoId,jdbcType=INTEGER},
+      material_name = #{materialName,jdbcType=VARCHAR},
+      total_num = #{totalNum,jdbcType=VARCHAR},
+      material_specification = #{materialSpecification,jdbcType=VARCHAR},
+      material_type = #{materialType,jdbcType=VARCHAR},
+      order_from_no = #{orderFromNo,jdbcType=VARCHAR}
+    where material_id = #{materialId,jdbcType=INTEGER}
+  </update>
+</mapper>

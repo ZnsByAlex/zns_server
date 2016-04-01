@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zns.app.dao.ILineCustomerDao" >
+  <resultMap id="BaseResultMap" type="com.zns.app.bean.LineCustomer" >
+    <result column="exam_id" property="examId" jdbcType="INTEGER" />
+    <result column="customer_no" property="customerNo" jdbcType="VARCHAR" />
+    <result column="customer_name" property="customerName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    exam_id, customer_no, customer_name
+  </sql>
+  <insert id="insert" parameterType="com.zns.app.bean.LineCustomer" >
+    insert into t_line_customer_info (exam_id, customer_no, customer_name
+      )
+    values (#{examId,jdbcType=INTEGER}, #{customerNo,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zns.app.bean.LineCustomer" >
+    insert into t_line_customer_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="examId != null" >
+        exam_id,
+      </if>
+      <if test="customerNo != null" >
+        customer_no,
+      </if>
+      <if test="customerName != null" >
+        customer_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="examId != null" >
+        #{examId,jdbcType=INTEGER},
+      </if>
+      <if test="customerNo != null" >
+        #{customerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="getLineCustomerByExamId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  select 
+  <include refid="Base_Column_List" />
+  from t_line_customer_info
+  where exam_id = #{examId , jdbcType=INTEGER}
+  
+  </select>
+</mapper>

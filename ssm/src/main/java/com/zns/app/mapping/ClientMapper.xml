@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zns.app.dao.IClientDao" >
+  <resultMap id="BaseResultMap" type="com.zns.app.bean.Client" >
+    <id column="client_id" property="clientId" jdbcType="INTEGER" />
+    <result column="exam_info_id" property="examInfoId" jdbcType="INTEGER" />
+    <result column="client_name" property="clientName" jdbcType="VARCHAR" />
+    <result column="client_short_name" property="clientShortName" jdbcType="VARCHAR" />
+    <result column="client_type" property="clientType" jdbcType="VARCHAR" />
+    <result column="client_address" property="clientAddress" jdbcType="VARCHAR" />
+    <result column="client_tel" property="clientTel" jdbcType="VARCHAR" />
+    <result column="order_from_no" property="orderFromNo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    client_id, exam_info_id, client_name, client_short_name, client_type, client_address, 
+    client_tel, order_from_no
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_client_priority_info
+    where exam_info_id = #{examId,jdbcType=INTEGER}
+  </select>
+  <select id="getClientByExamId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_client_priority_info
+    where exam_info_id = #{examId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_client_priority_info
+    where client_id = #{clientId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zns.app.bean.Client" >
+    insert into t_client_priority_info (client_id, exam_info_id, client_name, 
+      client_short_name, client_type, client_address, 
+      client_tel, order_from_no)
+    values (#{clientId,jdbcType=INTEGER}, #{examInfoId,jdbcType=INTEGER}, #{clientName,jdbcType=VARCHAR}, 
+      #{clientShortName,jdbcType=VARCHAR}, #{clientType,jdbcType=VARCHAR}, #{clientAddress,jdbcType=VARCHAR}, 
+      #{clientTel,jdbcType=VARCHAR}, #{orderFromNo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zns.app.bean.Client" >
+    insert into t_client_priority_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="clientId != null" >
+        client_id,
+      </if>
+      <if test="examInfoId != null" >
+        exam_info_id,
+      </if>
+      <if test="clientName != null" >
+        client_name,
+      </if>
+      <if test="clientShortName != null" >
+        client_short_name,
+      </if>
+      <if test="clientType != null" >
+        client_type,
+      </if>
+      <if test="clientAddress != null" >
+        client_address,
+      </if>
+      <if test="clientTel != null" >
+        client_tel,
+      </if>
+      <if test="orderFromNo != null" >
+        order_from_no,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="clientId != null" >
+        #{clientId,jdbcType=INTEGER},
+      </if>
+      <if test="examInfoId != null" >
+        #{examInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="clientName != null" >
+        #{clientName,jdbcType=VARCHAR},
+      </if>
+      <if test="clientShortName != null" >
+        #{clientShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="clientType != null" >
+        #{clientType,jdbcType=VARCHAR},
+      </if>
+      <if test="clientAddress != null" >
+        #{clientAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="clientTel != null" >
+        #{clientTel,jdbcType=VARCHAR},
+      </if>
+      <if test="orderFromNo != null" >
+        #{orderFromNo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zns.app.bean.Client" >
+    update t_client_priority_info
+    <set >
+      <if test="examInfoId != null" >
+        exam_info_id = #{examInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="clientName != null" >
+        client_name = #{clientName,jdbcType=VARCHAR},
+      </if>
+      <if test="clientShortName != null" >
+        client_short_name = #{clientShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="clientType != null" >
+        client_type = #{clientType,jdbcType=VARCHAR},
+      </if>
+      <if test="clientAddress != null" >
+        client_address = #{clientAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="clientTel != null" >
+        client_tel = #{clientTel,jdbcType=VARCHAR},
+      </if>
+      <if test="orderFromNo != null" >
+        order_from_no = #{orderFromNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where client_id = #{clientId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zns.app.bean.Client" >
+    update t_client_priority_info
+    set exam_info_id = #{examInfoId,jdbcType=INTEGER},
+      client_name = #{clientName,jdbcType=VARCHAR},
+      client_short_name = #{clientShortName,jdbcType=VARCHAR},
+      client_type = #{clientType,jdbcType=VARCHAR},
+      client_address = #{clientAddress,jdbcType=VARCHAR},
+      client_tel = #{clientTel,jdbcType=VARCHAR},
+      order_from_no = #{orderFromNo,jdbcType=VARCHAR}
+    where client_id = #{clientId,jdbcType=INTEGER}
+  </update>
+</mapper>

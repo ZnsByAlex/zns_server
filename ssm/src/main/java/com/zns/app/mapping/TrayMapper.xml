@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zns.app.dao.ITrayDao" >
+  <resultMap id="BaseResultMap" type="com.zns.app.bean.Tray" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="zutuo_goods_no" property="zutuoGoodsNo" jdbcType="VARCHAR" />
+    <result column="trayNo" property="trayno" jdbcType="VARCHAR" />
+    <result column="goodsName" property="goodsname" jdbcType="VARCHAR" />
+    <result column="goodsNum" property="goodsnum" jdbcType="VARCHAR" />
+    <result column="sLcationNo" property="slcationno" jdbcType="VARCHAR" />
+    <result column="receptorderNo" property="receptorderno" jdbcType="VARCHAR" />
+    <result column="order_from_no" property="orderFromNo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, zutuo_goods_no, trayNo, goodsName, goodsNum, sLcationNo, receptorderNo, order_from_no
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_zutuo_tray
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_zutuo_tray
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zns.app.bean.Tray" >
+    insert into t_zutuo_tray (id, zutuo_goods_no, trayNo, 
+      goodsName, goodsNum, sLcationNo, 
+      receptorderNo, order_from_no)
+    values (#{id,jdbcType=INTEGER}, #{zutuoGoodsNo,jdbcType=VARCHAR}, #{trayno,jdbcType=VARCHAR}, 
+      #{goodsname,jdbcType=VARCHAR}, #{goodsnum,jdbcType=VARCHAR}, #{slcationno,jdbcType=VARCHAR}, 
+      #{receptorderno,jdbcType=VARCHAR}, #{orderFromNo,jdbcType=VARCHAR})
+  </insert>
+   <insert id="insertTrayList"  parameterType="java.util.List">
+  	insert into t_zutuo_tray (userNo,examId , zutuo_goods_no, trayNo, 
+      goodsName, goodsNum, sLcationNo, 
+      receptorderNo, orderFromNo) values 
+      <foreach collection="list" item="item" index="index"  
+        separator=",">
+        (#{item.userNo},#{item.examId},#{item.zutuoGoodsNo}, #{item.trayno}, #{item.goodsname}, 
+      #{item.goodsnum}, #{item.slcationno}, #{item.receptorderno}
+      , #{item.orderFromNo}
+      )
+      </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.zns.app.bean.Tray" >
+    insert into t_zutuo_tray
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="zutuoGoodsNo != null" >
+        zutuo_goods_no,
+      </if>
+      <if test="trayno != null" >
+        trayNo,
+      </if>
+      <if test="goodsname != null" >
+        goodsName,
+      </if>
+      <if test="goodsnum != null" >
+        goodsNum,
+      </if>
+      <if test="slcationno != null" >
+        sLcationNo,
+      </if>
+      <if test="receptorderno != null" >
+        receptorderNo,
+      </if>
+      <if test="orderFromNo != null" >
+        order_from_no,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="zutuoGoodsNo != null" >
+        #{zutuoGoodsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="trayno != null" >
+        #{trayno,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsname != null" >
+        #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsnum != null" >
+        #{goodsnum,jdbcType=VARCHAR},
+      </if>
+      <if test="slcationno != null" >
+        #{slcationno,jdbcType=VARCHAR},
+      </if>
+      <if test="receptorderno != null" >
+        #{receptorderno,jdbcType=VARCHAR},
+      </if>
+      <if test="orderFromNo != null" >
+        #{orderFromNo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zns.app.bean.Tray" >
+    update t_zutuo_tray
+    <set >
+      <if test="zutuoGoodsNo != null" >
+        zutuo_goods_no = #{zutuoGoodsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="trayno != null" >
+        trayNo = #{trayno,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsname != null" >
+        goodsName = #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsnum != null" >
+        goodsNum = #{goodsnum,jdbcType=VARCHAR},
+      </if>
+      <if test="slcationno != null" >
+        sLcationNo = #{slcationno,jdbcType=VARCHAR},
+      </if>
+      <if test="receptorderno != null" >
+        receptorderNo = #{receptorderno,jdbcType=VARCHAR},
+      </if>
+      <if test="orderFromNo != null" >
+        order_from_no = #{orderFromNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zns.app.bean.Tray" >
+    update t_zutuo_tray
+    set zutuo_goods_no = #{zutuoGoodsNo,jdbcType=VARCHAR},
+      trayNo = #{trayno,jdbcType=VARCHAR},
+      goodsName = #{goodsname,jdbcType=VARCHAR},
+      goodsNum = #{goodsnum,jdbcType=VARCHAR},
+      sLcationNo = #{slcationno,jdbcType=VARCHAR},
+      receptorderNo = #{receptorderno,jdbcType=VARCHAR},
+      order_from_no = #{orderFromNo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
