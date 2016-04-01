@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -55,6 +56,7 @@ public class UserController {
 //		String password = (String) userInfoList.get(0).get("password");
 		String userNo = "3299";
 		String password = "0000";
+		
 		
 		boolean isExist = userService.isUserExist(userNo, password);
 		
@@ -193,6 +195,9 @@ public class UserController {
 			
 			
 			list.add((LinkedHashMap<String, Object>) tempMap);
+			
+			
+			System.out.println("teststststststst");
 			
 		}
 		
