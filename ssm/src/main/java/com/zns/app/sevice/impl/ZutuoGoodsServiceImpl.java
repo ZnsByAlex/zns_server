@@ -55,7 +55,7 @@ public class ZutuoGoodsServiceImpl implements IZutuoGoodsService {
 			tray.setTrayno((String)info.get("trayNo"));
 			tray.setZutuoGoodsNo((String)info.get("goodsNo"));
 			tray.setGoodsnum((String)info.get("goodsNum"));
-			tray.setReceptorderno((String)info.get("R20130625"));
+			tray.setReceptorderno((String)info.get("receptorderNo"));
 			
 			list.add(tray);
 		}

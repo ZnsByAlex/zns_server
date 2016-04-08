@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zns.app.bean.ExamInfo;
+import com.zns.app.bean.Storage;
 import com.zns.app.bean.ZutuoGoods;
 import com.zns.app.service.IAnalysisService;
 import com.zns.app.service.IExamInfoService;
+import com.zns.app.service.IStorageService;
 import com.zns.app.service.IUserService;
 import com.zns.app.service.IZutuoGoodsService;
 import com.zns.app.util.JsonUtil;
@@ -41,6 +43,9 @@ public class UserController {
 	
 	@Resource
 	private IZutuoGoodsService zutuoGoodsService;
+	
+	@Resource
+	private IStorageService storageService;
 	
 	@RequestMapping(value= "/login" ,method= RequestMethod.POST)  
 	@ResponseBody
@@ -220,4 +225,16 @@ public class UserController {
 		
 		return JsonUtil.Map2Json(resp);
 	}
+	
+	@RequestMapping("/storageInfo")
+	public @ResponseBody String storageInfo(HttpServletRequest request,Model model){
+		Map<String, Object> temp = new LinkedHashMap<String, Object>();
+		temp.put("userNo", "3299");
+		temp.put("examId", 1);
+		
+		List<Storage> list = storageService.getStorageList(temp);
+		
+		return JsonUtil.toJSon(list);
+	}
+	
 }
