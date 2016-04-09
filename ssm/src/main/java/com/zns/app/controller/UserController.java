@@ -2,10 +2,10 @@ package com.zns.app.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Stack;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.zns.app.bean.ExamInfo;
+import com.zns.app.bean.User;
 import com.zns.app.bean.ZutuoGoods;
 import com.zns.app.service.IAnalysisService;
 import com.zns.app.service.IExamInfoService;
@@ -219,5 +221,24 @@ public class UserController {
 		}
 		
 		return JsonUtil.Map2Json(resp);
+	}
+	
+	@RequestMapping("/testUser")
+	public ModelAndView getAllUser(HttpServletRequest request,HttpServletResponse response){
+		List<User> list = userService.getUserList();
+		if(list == null){
+			System.out.println("null");
+		}
+//		
+		Iterator it = list.iterator();
+		while(it.hasNext()){
+			User tem = (User) it.next();
+			System.out.println(tem.getId());
+			System.out.print(tem.getUserName());
+			System.out.println(tem.getUserNo());
+		}
+		ModelAndView mav = new ModelAndView("testUser");
+		mav.addObject("User", list);
+		return mav;
 	}
 }

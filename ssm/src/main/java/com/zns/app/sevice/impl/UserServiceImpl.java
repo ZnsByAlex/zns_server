@@ -1,6 +1,7 @@
 package com.zns.app.sevice.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -39,6 +40,13 @@ public class UserServiceImpl implements IUserService{
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public List<User> getUserList() {
+		// TODO Auto-generated method stub
+		return userDao.getUserList();
+	}
+	
 	
 	
 

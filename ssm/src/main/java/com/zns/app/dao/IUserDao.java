@@ -1,5 +1,6 @@
 package com.zns.app.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import com.zns.app.bean.User;
@@ -18,6 +19,8 @@ public interface IUserDao {
     int updateByPrimaryKey(User record);
     
     User test();
+    
+    List<User> getUserList ();
     
     
 }
