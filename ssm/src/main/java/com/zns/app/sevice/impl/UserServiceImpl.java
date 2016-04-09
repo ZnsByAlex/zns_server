@@ -36,15 +36,46 @@ public class UserServiceImpl implements IUserService{
 	}
 
 	@Override
-	public boolean registerUser(User user) {
+	public String registerUser(User user) {
 		// TODO Auto-generated method stub
-		return false;
+		int result;
+		if(user.getUserNo() == null || user.getUserNo().equals("")){
+			return "UserNo can't be empty";
+		}else if (user.getUserPwd() == null || user.getUserPwd().equals("")){
+			return "UserPwd can't be empty";
+		}
+		result = userDao.insert(user);
+		if(result == 1) return "success";
+		return "other error";
 	}
 
 	@Override
 	public List<User> getUserList() {
 		// TODO Auto-generated method stub
 		return userDao.getUserList();
+	}
+
+	@Override
+	public boolean deleteUserById(Integer userid) {
+		// TODO Auto-generated method stub
+		int result = userDao.deleteByPrimaryKey(userid);
+		if(result == 1) return true;
+		return false;
+	}
+
+	@Override
+	public boolean updateUserById(User user) {
+		// TODO Auto-generated method stub
+		int result = userDao.updateByPrimaryKeySelective(user);
+		if(result ==1) return true;
+		return false;
+	}
+
+	@Override
+	public User getUserById(Integer userId) {
+		// TODO Auto-generated method stub
+		User user = userDao.selectById(userId);
+		return user;
 	}
 	
 	

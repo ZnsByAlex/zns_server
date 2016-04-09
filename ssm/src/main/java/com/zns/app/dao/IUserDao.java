@@ -22,5 +22,7 @@ public interface IUserDao {
     
     List<User> getUserList ();
     
+    User selectById(Integer id);
+    
     
 }

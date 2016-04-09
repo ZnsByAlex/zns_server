@@ -19,6 +19,12 @@
     from t_user_info
     where user_no = #{userNo,jdbcType=VARCHAR} and user_pwd = #{password,jdbcType=VARCHAR}
   </select>
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_user_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
   <select id="getUserList" resultMap="BaseResultMap"  >
     select 
     <include refid="Base_Column_List" />
@@ -29,10 +35,10 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.zns.app.bean.User" >
-    insert into t_user_info (id, user_no, user_pwd, 
+    insert into t_user_info (user_no, user_pwd, 
       user_name, tel, school, 
       type)
-    values (#{id,jdbcType=INTEGER}, #{userNo,jdbcType=VARCHAR}, #{userPwd,jdbcType=VARCHAR}, 
+    values (#{userNo,jdbcType=VARCHAR}, #{userPwd,jdbcType=VARCHAR}, 
       #{userName,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{school,jdbcType=VARCHAR}, 
       #{type,jdbcType=VARCHAR})
   </insert>
@@ -121,6 +127,5 @@
   </update>
   <select id="test" resultMap="BaseResultMap" >
 		select * from t_user_info
-		
 	</select>
 </mapper>

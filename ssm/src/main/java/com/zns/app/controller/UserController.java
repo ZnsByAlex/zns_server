@@ -26,6 +26,7 @@ import com.zns.app.service.IAnalysisService;
 import com.zns.app.service.IExamInfoService;
 import com.zns.app.service.IUserService;
 import com.zns.app.service.IZutuoGoodsService;
+import com.zns.app.util.BeanUtil;
 import com.zns.app.util.JsonUtil;
 
 @Controller
@@ -241,4 +242,82 @@ public class UserController {
 		mav.addObject("User", list);
 		return mav;
 	}
+	
+	@RequestMapping("/delete")
+	@ResponseBody
+	public String delete(User user, HttpServletRequest request,HttpServletResponse response){
+		boolean result = userService.deleteUserById(user.getId());
+		System.out.println(result);
+		Map<String, Object> resMap = new HashMap<String, Object>();
+		if(result) {
+			resMap.put("status", "200");
+		}else {
+			resMap.put("status", "300");
+		}
+//		response.setContentType("application/json");
+//		PrintWriter out;
+//		try {
+//			out = response.getWriter();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		return JsonUtil.Map2Json(resMap);
+		
+	}
+	
+	@RequestMapping("/update")
+	@ResponseBody
+	public String update(User user, HttpServletRequest request,HttpServletResponse response){
+//		System.out.println(user.getId());
+		boolean result = userService.updateUserById(user);
+//		System.out.println(result);
+		Map<String, Object> resMap = new LinkedHashMap<String, Object>();
+		if(result) {
+			resMap.put("status", "200");
+		}else {
+			resMap.put("status", "300");
+		}
+		return JsonUtil.Map2Json(resMap);
+	}
+	
+	@RequestMapping("selectid")
+	@ResponseBody
+	public String slectByid(Integer id, HttpServletRequest request,HttpServletResponse response){
+		User user = userService.getUserById(id);
+		Map<String, Object> resMap = new LinkedHashMap<String, Object>();
+		if(user != null){
+			resMap.put("status", "200");
+			Map<String, String> temp = BeanUtil.toMap(user);
+			System.out.println(temp.get("id"));
+			System.out.println(temp.get("userNo"));
+			System.out.println(temp.get("userName"));
+			resMap.put("userInfo", temp);
+		}else {
+			resMap.put("status", "300");
+		}
+//		System.out.println(JsonUtil.Map2Json(resMap));
+		return JsonUtil.Map2Json(resMap);
+	}
+	
+	@RequestMapping("/insert")
+	@ResponseBody
+	public String insertUser(User user, HttpServletRequest request,HttpServletResponse response){
+		String result = userService.registerUser(user);
+		Map<String, Object> resMap = new LinkedHashMap<String, Object>();
+		if(result.equals("success")) {
+			resMap.put("status", "200");
+		}else {
+			resMap.put("status", "300");
+			resMap.put("info", result);
+		}
+		System.out.println(JsonUtil.Map2Json(resMap));
+		return JsonUtil.Map2Json(resMap);
+	}
+	
+	@RequestMapping("ajaxTest")
+	public String ajaxTest(){
+		return "ajaxTest";
+	}
+	
 }
