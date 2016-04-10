@@ -21,9 +21,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.zns.app.bean.ExamInfo;
 import com.zns.app.bean.User;
+import com.zns.app.bean.Storage;
 import com.zns.app.bean.ZutuoGoods;
 import com.zns.app.service.IAnalysisService;
 import com.zns.app.service.IExamInfoService;
+import com.zns.app.service.IStorageService;
 import com.zns.app.service.IUserService;
 import com.zns.app.service.IZutuoGoodsService;
 import com.zns.app.util.BeanUtil;

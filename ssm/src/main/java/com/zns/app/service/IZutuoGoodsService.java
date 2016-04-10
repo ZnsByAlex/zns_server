@@ -19,4 +19,6 @@ public interface IZutuoGoodsService {
 	 * @return
 	 */
 	public boolean getZutuoResult(String json_result);
+	
+
 }

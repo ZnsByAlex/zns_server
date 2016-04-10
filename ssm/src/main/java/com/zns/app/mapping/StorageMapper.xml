@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zns.app.dao.IStorageDao" >
+  <resultMap id="BaseResultMap" type="com.zns.app.bean.Storage" >
+    <result column="userNo" property="userno" jdbcType="VARCHAR" />
+    <result column="examId" property="examid" jdbcType="INTEGER" />
+    <result column="trayNo" property="trayno" jdbcType="VARCHAR" />
+    <result column="storageNo" property="storageno" jdbcType="VARCHAR" />
+    <result column="goodsName" property="goodsname" jdbcType="VARCHAR" />
+    <result column="goodsNum" property="goodsnum" jdbcType="VARCHAR" />
+    <result column="goodsId" property="goodsid" jdbcType="VARCHAR" />
+    <result column="goodsUnit" property="goodsunit" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    userNo , examId, trayNo, storageNo , goodsName , goodsNum , goodsId , goodsUnit
+  </sql>
+  
+  <insert id="insert" parameterType="com.zns.app.bean.Storage" >
+    insert into t_storage_info (userNo, examId, trayNo, 
+      storageNo, goodsName, goodsNum, 
+      goodsId, goodsUnit)
+    values (#{userno,jdbcType=VARCHAR}, #{examid,jdbcType=INTEGER}, #{trayno,jdbcType=VARCHAR}, 
+      #{storageno,jdbcType=VARCHAR}, #{goodsname,jdbcType=VARCHAR}, #{goodsnum,jdbcType=VARCHAR}, 
+      #{goodsid,jdbcType=VARCHAR}, #{goodsunit,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zns.app.bean.Storage" >
+    insert into t_storage_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userno != null" >
+        userNo,
+      </if>
+      <if test="examid != null" >
+        examId,
+      </if>
+      <if test="trayno != null" >
+        trayNo,
+      </if>
+      <if test="storageno != null" >
+        storageNo,
+      </if>
+      <if test="goodsname != null" >
+        goodsName,
+      </if>
+      <if test="goodsnum != null" >
+        goodsNum,
+      </if>
+      <if test="goodsid != null" >
+        goodsId,
+      </if>
+      <if test="goodsunit != null" >
+        goodsUnit,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userno != null" >
+        #{userno,jdbcType=VARCHAR},
+      </if>
+      <if test="examid != null" >
+        #{examid,jdbcType=INTEGER},
+      </if>
+      <if test="trayno != null" >
+        #{trayno,jdbcType=VARCHAR},
+      </if>
+      <if test="storageno != null" >
+        #{storageno,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsname != null" >
+        #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsnum != null" >
+        #{goodsnum,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsid != null" >
+        #{goodsid,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsunit != null" >
+        #{goodsunit,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <select id="selectByExamIdAndUser" resultMap="BaseResultMap" parameterType="java.util.Map">
+  
+	  select 
+	  <include refid="Base_Column_List" />  
+	  from t_storage_info where userNo = #{userNo,jdbcType=VARCHAR} and examId = #{examId}
+  
+  </select>
+  
+</mapper>
