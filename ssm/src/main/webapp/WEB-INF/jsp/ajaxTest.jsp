@@ -14,11 +14,11 @@
             var age = $("#age").val();  
             $.ajax({  
                    type: "POST",  
-                   url: "user/insert",  
-                   data: { userPwd:"1234", userName:"Yokong3"},  
+                   url: "order/selectid",  
+                   data: {orderId:"6"},  
                    success:function(data){  
                 	   data = eval("(" + data + ")");
-                       alert("名字:" + data.info );  
+                       alert("名字:" + data.status + " " + data.orderInfo.orderId );  
                    },
                    dataType: "json"
             });  

@@ -22,7 +22,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_order_effec_info
-    where exam_info_id = #{examId,jdbcType=INTEGER}
+    where order_id = #{examId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_order_effec_info
