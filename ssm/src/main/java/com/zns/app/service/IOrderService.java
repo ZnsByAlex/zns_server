@@ -13,5 +13,7 @@ public interface IOrderService {
 	public boolean updateOrder(Order order);
 	
 	public Order selectOrderById(Integer orderId);
+	
+	public String insertOrder(Order order);
 
 }

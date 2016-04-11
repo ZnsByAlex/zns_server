@@ -91,6 +91,23 @@ public class OrderController {
 		return JsonUtil.Map2Json(resMap);
 	}
 	
+	@RequestMapping("/insert")
+	@ResponseBody
+	public String insertOrder(Order order, HttpServletRequest request,HttpServletResponse response){
+		System.out.println(order.getExamInfoId());
+		System.out.println(order.getOrderNo());
+		System.out.println(order.getCustomerName());
+		String result = orderService.insertOrder(order);
+		Map<String, Object> resMap = new LinkedHashMap<String, Object>();
+		if (result.equals("success")){
+			resMap.put("status", "200");
+		} else {
+			resMap.put("status", "300");
+			resMap.put("info", result);
+		}
+		return JsonUtil.Map2Json(resMap);
+	}
+	
 	@RequestMapping("ajaxTest")
 	public String ajaxTest(){
 		return "ajaxTest";
