@@ -90,6 +90,7 @@ public class OrderController {
 //		System.out.println(JsonUtil.Map2Json(resMap));
 		return JsonUtil.Map2Json(resMap);
 	}
+	
 	@RequestMapping("ajaxTest")
 	public String ajaxTest(){
 		return "ajaxTest";
