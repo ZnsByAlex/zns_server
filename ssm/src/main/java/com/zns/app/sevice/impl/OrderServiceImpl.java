@@ -47,5 +47,13 @@ public class OrderServiceImpl implements IOrderService{
 		return result;
 	}
 
+	@Override
+	public String insertOrder(Order order) {
+		// TODO Auto-generated method stub
+		int result = orderDao.insertSelective(order);
+		if (result == 1) return "success";
+		return "error";
+	}
+
 
 }
