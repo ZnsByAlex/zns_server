@@ -319,7 +319,7 @@ public class UserController {
 	
 	@RequestMapping("ajaxTest")
 	public String ajaxTest(){
-		return "testUser";
+		return "ajaxTest";
 	}
 	
 }

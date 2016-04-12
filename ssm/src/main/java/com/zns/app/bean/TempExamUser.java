@@ -17,11 +17,11 @@ public class TempExamUser {
         this.id = id;
     }
 
-    public String getUserid() {
+    public String getUserNo() {
         return userNo;
     }
 
-    public void setUserid(String userNo) {
+    public void setUserNo(String userNo) {
         this.userNo = userNo;
     }
 

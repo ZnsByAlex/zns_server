@@ -16,6 +16,11 @@
     from t_examination_user_info
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="getExamUserList" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_examination_user_info
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_examination_user_info
     where id = #{id,jdbcType=INTEGER}
@@ -32,7 +37,7 @@
       <if test="id != null" >
         id,
       </if>
-      <if test="userid != null" >
+      <if test="userNo != null" >
         userNo,
       </if>
       <if test="examinationid != null" >
@@ -46,7 +51,7 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="userid != null" >
+      <if test="userNo != null" >
         #{userNo,jdbcType=VARCHAR},
       </if>
       <if test="examinationid != null" >
@@ -60,7 +65,7 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.zns.app.bean.TempExamUser" >
     update t_examination_user_info
     <set >
-      <if test="userid != null" >
+      <if test="userNo != null" >
         userNo = #{userNo,jdbcType=VARCHAR},
       </if>
       <if test="examinationid != null" >
