@@ -10,9 +10,9 @@ public interface ITempExamUserService {
 	
 	public boolean deleteExamUserById(Integer id);
 	
-	public boolean updateExamUserById(Integer id);
+	public boolean updateExamUser(TempExamUser examUser);
 	
 	public TempExamUser selectExamUserById(Integer id);
 	
-	public String insertExamUserById(TempExamUser examuser);
+	public String insertExamUser(TempExamUser examuser);
 }

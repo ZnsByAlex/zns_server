@@ -19,13 +19,18 @@
     select 
     <include refid="Base_Column_List" />
     from t_client_priority_info
-    where exam_info_id = #{examId,jdbcType=INTEGER}
+    where client_id = #{clientId,jdbcType=INTEGER}
   </select>
   <select id="getClientByExamId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from t_client_priority_info
     where exam_info_id = #{examId,jdbcType=INTEGER}
+  </select>
+  <select id="getClientList" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_client_priority_info
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_client_priority_info

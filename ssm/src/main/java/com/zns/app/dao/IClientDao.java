@@ -18,4 +18,7 @@ public interface IClientDao {
     int updateByPrimaryKey(Client record);
     
     List<Client> getClientByExamId(Integer examId);
+    
+    List<Client> getClientList();
+    
 }

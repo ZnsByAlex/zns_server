@@ -190,7 +190,7 @@ public class AnalysisServiceImpl implements IAnalysisService{
 	@Override
 	public String analysisData(String userNo, Integer examId) {
 		temp = new TempExamUser();
-		temp.setUserid(userNo);
+		temp.setUserNo(userNo);
 		temp.setExaminationid(examId);
 		
 		int res = tempExamUserDao.insert(temp);

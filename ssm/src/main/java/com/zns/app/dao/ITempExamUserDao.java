@@ -1,5 +1,7 @@
 package com.zns.app.dao;
 
+import java.util.List;
+
 import com.zns.app.bean.TempExamUser;
 
 public interface ITempExamUserDao {
@@ -14,4 +16,6 @@ public interface ITempExamUserDao {
     int updateByPrimaryKeySelective(TempExamUser record);
 
     int updateByPrimaryKey(TempExamUser record);
+    
+    List<TempExamUser> getExamUserList();
 }
