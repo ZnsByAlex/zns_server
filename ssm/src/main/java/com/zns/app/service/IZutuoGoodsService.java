@@ -11,6 +11,14 @@ public interface IZutuoGoodsService {
 	 * @param examId
 	 * @return
 	 */
+	
+	public List<ZutuoGoods> getZutuoGoodsList();
+	/**
+	 * 后台用获取全部祖托结果列表
+	 * @param map
+	 * @return
+	 */
+	
 	public List<ZutuoGoods> getZutuoGoodsList(Map<String , String> map);
 	
 	/**
@@ -20,5 +28,11 @@ public interface IZutuoGoodsService {
 	 */
 	public boolean getZutuoResult(String json_result);
 	
-
+	public boolean deleteZutuoByIdAndNo(Integer examId, String goodsNo);
+	
+	public boolean updateZutuo(ZutuoGoods zutuoGoods);
+	
+	public ZutuoGoods getZutuoByIdAndNo(Integer examId, String goodsNo);
+	
+	public String insertZutuoGoods(ZutuoGoods zutuoGoods);
 }

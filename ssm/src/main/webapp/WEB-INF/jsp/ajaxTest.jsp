@@ -14,8 +14,8 @@
             var age = $("#age").val();  
             $.ajax({  
                    type: "POST",  
-                   url: "client/delete",  
-                   data: {clientId:"5"},  
+                   url: "zutuoGoods/insert",  
+                   data: {examid:"1", goodsno:"123", goodsname:"hahahah"},  
                    success:function(data){  
                 	   data = eval("(" + data + ")");
                        alert("名字:" + data.status);  
