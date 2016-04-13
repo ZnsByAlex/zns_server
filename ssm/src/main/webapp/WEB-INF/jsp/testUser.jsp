@@ -83,13 +83,13 @@
 									<th width="110" class="ac">Content Control</th>
 								</tr>
 
-							<c:forEach items="${ZutuoGoods}" var="item">
+							<c:forEach items="${ExamInfo}" var="item">
 								<tr class="odd">
-									<td><input type="checkbox" class="checkbox" name="foodCheckbox[]" value="${item.examid}"/></td>
-									<td><h3><a href="#">${item.goodsno}</a></h3></td>
-									<td>${item.goodsname}</td>
-									<td><button class="deleteSingleFood ico edit" value="${item.goodsnum}" style="margin: 0 10px;">Delete</button>
-									<button class="editSingleFood ico edit" value="${item.orderfromno}"><a href="#">Edit</a></button></td>
+									<td><input type="checkbox" class="checkbox" name="foodCheckbox[]" value="${item.recordid}"/></td>
+									<td><h3><a href="#">${item.examinationno}</a></h3></td>
+									<td>${item.examinationtitle}</td>
+									<td><button class="deleteSingleFood ico edit" value="${item.examinationtitle}" style="margin: 0 10px;">Delete</button>
+									<button class="editSingleFood ico edit" value="${item.examinationtitle}"><a href="#">Edit</a></button></td>
 								</tr>
 							</c:forEach>
 							</table>

@@ -14,11 +14,11 @@
             var age = $("#age").val();  
             $.ajax({  
                    type: "POST",  
-                   url: "zutuoGoods/insert",  
-                   data: {examid:"1", goodsno:"123", goodsname:"hahahah"},  
-                   success:function(data){  
+                   url: "examInfo/selectid",  
+                   data: {recordid:"1"},  
+                   success:function(data){
                 	   data = eval("(" + data + ")");
-                       alert("名字:" + data.status);  
+                       alert("名字:" + data.status + " " + data.info);  
                    },
                    dataType: "json"
             });  
