@@ -18,13 +18,18 @@
     select 
     <include refid="Base_Column_List" />
     from t_material_info
-    where exam_info_id = #{examId,jdbcType=INTEGER}
+    where material_id = #{examId,jdbcType=INTEGER}
   </select>
   <select id="getMaterialListByExamId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from t_material_info
     where exam_info_id = #{examId,jdbcType=INTEGER}
+  </select>
+  <select id="getMaterialList" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_material_info
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_material_info

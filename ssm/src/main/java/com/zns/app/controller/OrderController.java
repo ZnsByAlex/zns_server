@@ -29,7 +29,7 @@ public class OrderController {
 	
 	@RequestMapping("/getOrderList")
 	public ModelAndView getOrderList(Integer examId, HttpServletRequest request,HttpServletResponse response){
-		List<Order> list = orderService.getOrderList(new Integer(1));
+		List<Order> list = orderService.getOrderList(examId);
 		if(list == null){
 			System.out.println("null");
 		}

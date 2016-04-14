@@ -240,7 +240,7 @@ public class UserController {
 			System.out.print(tem.getUserName());
 			System.out.println(tem.getUserNo());
 		}
-		ModelAndView mav = new ModelAndView("testUser");
+		ModelAndView mav = new ModelAndView("user");
 		mav.addObject("User", list);
 		return mav;
 	}

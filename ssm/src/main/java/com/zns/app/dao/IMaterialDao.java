@@ -18,4 +18,6 @@ public interface IMaterialDao {
     int updateByPrimaryKey(Material record);
     
     List<Material> getMaterialListByExamId(Integer examId);
+    
+    List<Material> getMaterialList();
 }

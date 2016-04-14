@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link rel="stylesheet" href="/ssm/static//css/style.css" type="text/css" media="all" />
+<link rel="stylesheet" href="/ssm/static/css/style.css" type="text/css" media="all" />
 <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js" type="text/javascript"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
@@ -83,13 +83,13 @@
 									<th width="110" class="ac">Content Control</th>
 								</tr>
 
-							<c:forEach items="${ExamInfo}" var="item">
+							<c:forEach items="${Material}" var="item">
 								<tr class="odd">
-									<td><input type="checkbox" class="checkbox" name="foodCheckbox[]" value="${item.recordid}"/></td>
-									<td><h3><a href="#">${item.examinationno}</a></h3></td>
-									<td>${item.examinationtitle}</td>
-									<td><button class="deleteSingleFood ico edit" value="${item.examinationtitle}" style="margin: 0 10px;">Delete</button>
-									<button class="editSingleFood ico edit" value="${item.examinationtitle}"><a href="#">Edit</a></button></td>
+									<td><input type="checkbox" class="checkbox" name="foodCheckbox[]" value="${item.materialId}"/></td>
+									<td><h3><a href="#">${item.examInfoId}</a></h3></td>
+									<td>${item.materialName}</td>
+									<td><button class="deleteSingleFood ico edit" value="${item.totalNum}" style="margin: 0 10px;">Delete</button>
+									<button class="editSingleFood ico edit" value="${item.materialSpecification}"><a href="#">Edit</a></button></td>
 								</tr>
 							</c:forEach>
 							</table>
