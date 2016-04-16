@@ -20,6 +20,11 @@
     from t_zutuo_goods
     where goodsNo = #{goodsno,jdbcType=VARCHAR}
   </select>
+  <select id="getZutuoList" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_zutuo_goods
+  </select>
   
   <select id="selectByExamId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -28,9 +33,20 @@
     where examId = #{examId,jdbcType=INTEGER}
   </select>
   
+  <select id="selectByIdAndNo" resultMap="BaseResultMap" parameterType="Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_zutuo_goods
+    where examId = #{examId,jdbcType=INTEGER} and goodsNo = #{goodsNo,jdbcType=VARCHAR}
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from t_zutuo_goods
     where goodsNo = #{goodsno,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByIdAndNo" parameterType="Map" >
+    delete from t_zutuo_goods
+    where goodsNo = #{goodsNo,jdbcType=VARCHAR} and examId = #{examId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.zns.app.bean.ZutuoGoods" >
     insert into t_zutuo_goods (goodsNo, examId, goodsName, 
@@ -98,9 +114,6 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.zns.app.bean.ZutuoGoods" >
     update t_zutuo_goods
     <set >
-      <if test="examid != null" >
-        examId = #{examid,jdbcType=INTEGER},
-      </if>
       <if test="goodsname != null" >
         goodsName = #{goodsname,jdbcType=VARCHAR},
       </if>
@@ -120,7 +133,7 @@
         spec = #{spec,jdbcType=VARCHAR},
       </if>
     </set>
-    where goodsNo = #{goodsno,jdbcType=VARCHAR}
+    where goodsNo = #{goodsno,jdbcType=VARCHAR} and examId = #{examid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zns.app.bean.ZutuoGoods" >
     update t_zutuo_goods

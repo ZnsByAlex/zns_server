@@ -22,4 +22,37 @@ public class ExamInfoServiceImpl implements IExamInfoService {
 		return list;
 	}
 
+	@Override
+	public boolean deleteExamInfoById(Integer recordid) {
+		// TODO Auto-generated method stub
+		int result = examInfoDao.deleteByPrimaryKey(recordid);
+		if (result == 1) return true;
+		return false;
+	}
+
+	@Override
+	public boolean updateExamInfo(ExamInfo examInfo) {
+		// TODO Auto-generated method stub
+		int result = examInfoDao.updateByPrimaryKeySelective(examInfo);
+		if (result == 1) return true;
+		return false;
+	}
+
+	@Override
+	public ExamInfo selectExamInfoById(Integer recordid) {
+		// TODO Auto-generated method stub
+		ExamInfo examInfo = examInfoDao.selectByPrimaryKey(recordid);
+		return examInfo;
+	}
+
+	@Override
+	public String insertExamInfo(ExamInfo examInfo) {
+		// TODO Auto-generated method stub
+		if (examInfo.getRecordid() != null)
+			return "Error: can't insert recordId";
+		int result = examInfoDao.insertSelective(examInfo);
+		if (result == 1) return "success";
+		return "Unknown Error";
+	}
+
 }
