@@ -22,10 +22,13 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zns.app.bean.ExamInfo;
 import com.zns.app.bean.User;
 import com.zns.app.bean.Storage;
+import com.zns.app.bean.TempExamUser;
 import com.zns.app.bean.ZutuoGoods;
+import com.zns.app.dao.ITempExamUserDao;
 import com.zns.app.service.IAnalysisService;
 import com.zns.app.service.IExamInfoService;
 import com.zns.app.service.IStorageService;
+import com.zns.app.service.ITempExamUserService;
 import com.zns.app.service.IUserService;
 import com.zns.app.service.IZutuoGoodsService;
 import com.zns.app.util.BeanUtil;
@@ -35,6 +38,9 @@ import com.zns.app.util.JsonUtil;
 @RequestMapping("/user")
 public class UserController {
 
+	@Resource
+	private ITempExamUserService examUserService;
+	
 	@Resource
 	private IUserService userService;
 	
@@ -148,7 +154,7 @@ public class UserController {
 		
 		if(list.size()>0){
 			map.put("status", 200);
-			map.put("message", "��ȡ���ϳɹ�");
+			map.put("message", "閿熸枻鎷峰彇閿熸枻鎷烽敓杈冩垚鐧告嫹");
 			
 			for(int i=0;i<list.size() ;i++){
 				ZutuoGoods item = list.get(i);
@@ -171,7 +177,7 @@ public class UserController {
 			
 		}else{
 			map.put("status", 300);
-			map.put("message", "��ȡ����ʧ��");
+			map.put("message", "閿熸枻鎷峰彇閿熸枻鎷烽敓鏂ゆ嫹澶遍敓鏂ゆ嫹");
 		}
 		
 		return JsonUtil.Map2Json(map);
@@ -216,11 +222,11 @@ public class UserController {
 		if(isSuc){
 			
 			resp.put("status", "200");
-			resp.put("message", "�������");
+			resp.put("message", "閿熸枻鎷烽敓鏂ゆ嫹閿熸枻鎷烽敓锟�");
 			
 		}else{
 			resp.put("status", "300");
-			resp.put("message", "����ʧ��");
+			resp.put("message", "閿熸枻鎷烽敓鏂ゆ嫹澶遍敓鏂ゆ嫹");
 		}
 		
 		return JsonUtil.Map2Json(resp);
@@ -229,6 +235,7 @@ public class UserController {
 	@RequestMapping("/testUser")
 	public ModelAndView getAllUser(HttpServletRequest request,HttpServletResponse response){
 		List<User> list = userService.getUserList();
+		List<TempExamUser> examUserList = examUserService.getExamUserList();
 		if(list == null){
 			System.out.println("null");
 		}
@@ -242,6 +249,7 @@ public class UserController {
 		}
 		ModelAndView mav = new ModelAndView("user");
 		mav.addObject("User", list);
+		mav.addObject("ExamUser", examUserList);
 		return mav;
 	}
 	
@@ -312,6 +320,23 @@ public class UserController {
 		}else {
 			resMap.put("status", "300");
 			resMap.put("info", result);
+		}
+		System.out.println(JsonUtil.Map2Json(resMap));
+		return JsonUtil.Map2Json(resMap);
+	}
+	
+	@RequestMapping("/selectExam")
+	@ResponseBody
+	public String selectExam(String userNo, HttpServletRequest request,HttpServletResponse response){
+		TempExamUser result = examUserService.selectByUserNo(userNo);
+		Map<String, Object> resMap = new LinkedHashMap<String, Object>();
+		if(result != null){
+			resMap.put("status", "200");
+			resMap.put("score", result.getScore());
+			String examinationtitle = examInfoService.selectExamInfoById(result.getExaminationid()).getExaminationtitle();
+			resMap.put("examinationtitle", examinationtitle);
+		}else {
+			resMap.put("status", "201");
 		}
 		System.out.println(JsonUtil.Map2Json(resMap));
 		return JsonUtil.Map2Json(resMap);

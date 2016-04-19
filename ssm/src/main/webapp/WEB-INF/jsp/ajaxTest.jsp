@@ -14,11 +14,11 @@
             var age = $("#age").val();  
             $.ajax({  
                    type: "POST",  
-                   url: "material/selectid",  
-                   data: {materialId:"1"},  
+                   url: "userExam/selectTrayByNo",  
+                   data: {userNo:"3299"},  
                    success:function(data){
                 	   data = eval("(" + data + ")");
-                       alert("名字:" + data.status + " " + data.materialInfo.materialName);  
+                       alert("名字:" + data.status + " " + data.trayInfoList.toString());  
                    },
                    dataType: "json"
             });  

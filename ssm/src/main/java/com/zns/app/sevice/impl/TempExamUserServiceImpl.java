@@ -55,4 +55,10 @@ public class TempExamUserServiceImpl implements ITempExamUserService{
 		return "error";
 	}
 
+	@Override
+	public TempExamUser selectByUserNo(String userNo) {
+		// TODO Auto-generated method stub
+		return examUserDao.selectByUserNo(userNo);
+	}
+
 }

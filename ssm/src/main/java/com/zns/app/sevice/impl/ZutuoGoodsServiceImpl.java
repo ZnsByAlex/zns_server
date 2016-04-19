@@ -115,4 +115,10 @@ public class ZutuoGoodsServiceImpl implements IZutuoGoodsService {
 		if (result == 1) return "success";
 		return "Unknown Error";
 	}
+
+	@Override
+	public List<ZutuoGoods> selectByExamId(Integer examId) {
+		// TODO Auto-generated method stub
+		return zutuoDao.selectByExamId(examId);
+	}
 }

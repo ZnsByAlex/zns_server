@@ -18,4 +18,6 @@ public interface ITrayDao {
     int updateByPrimaryKey(Tray record);
     
     int insertTrayList(List<Tray> tray_list);
+    
+    List<Tray> getTrayListByUserNo(String userNo);
 }

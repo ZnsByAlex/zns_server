@@ -15,4 +15,6 @@ public interface ITempExamUserService {
 	public TempExamUser selectExamUserById(Integer id);
 	
 	public String insertExamUser(TempExamUser examuser);
+	
+	public TempExamUser selectByUserNo(String userNo);
 }

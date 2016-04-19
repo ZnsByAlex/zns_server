@@ -1,5 +1,7 @@
 package com.zns.app.dao;
 
+import java.util.List;
+
 import com.zns.app.bean.AnalysisResult;
 
 public interface IAnalysisResultDao {
@@ -14,4 +16,6 @@ public interface IAnalysisResultDao {
     int updateByPrimaryKeySelective(AnalysisResult record);
 
     int updateByPrimaryKey(AnalysisResult record);
+    
+    List<AnalysisResult> getAnalysisListByUserNo(String userNo);
 }

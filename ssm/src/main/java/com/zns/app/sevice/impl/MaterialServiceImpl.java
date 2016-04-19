@@ -53,4 +53,10 @@ public class MaterialServiceImpl implements IMaterialService{
 		if (result == 1) return "success";
 		return "Error: UnKnown Error";
 	}
+
+	@Override
+	public List<Material> getMaterialListByExamId(Integer examId) {
+		// TODO Auto-generated method stub
+		return materDao.getMaterialListByExamId(examId);
+	}
 }

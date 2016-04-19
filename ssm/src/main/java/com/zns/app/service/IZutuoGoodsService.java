@@ -35,4 +35,6 @@ public interface IZutuoGoodsService {
 	public ZutuoGoods getZutuoByIdAndNo(Integer examId, String goodsNo);
 	
 	public String insertZutuoGoods(ZutuoGoods zutuoGoods);
+	
+	public List<ZutuoGoods> selectByExamId(Integer examId);
 }
