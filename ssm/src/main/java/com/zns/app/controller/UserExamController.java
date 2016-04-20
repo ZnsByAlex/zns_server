@@ -13,14 +13,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zns.app.bean.AnalysisResult;
+import com.zns.app.bean.Storage;
+import com.zns.app.bean.TempExamUser;
 import com.zns.app.bean.Tray;
 import com.zns.app.service.IAnalysisService;
+import com.zns.app.service.IStorageService;
+import com.zns.app.service.ITempExamUserService;
 import com.zns.app.service.ITrayService;
 import com.zns.app.util.BeanUtil;
 import com.zns.app.util.JsonUtil;
 
 @Controller
-@RequestMapping("userExam")
+@RequestMapping("/userExam")
 public class UserExamController {
 
 	@Resource
@@ -28,6 +32,12 @@ public class UserExamController {
 	
 	@Resource
 	private ITrayService trayService;
+	
+	@Resource
+	private IStorageService storageService;
+	
+	@Resource
+	private ITempExamUserService examUserService;
 	
 	@RequestMapping("/selectAnalysisByNo")
 	@ResponseBody
@@ -50,7 +60,7 @@ public class UserExamController {
 		return JsonUtil.Map2Json(resMap);
 	}
 	
-	@RequestMapping("selectTrayByNo")
+	@RequestMapping("/selectTrayByNo")
 	@ResponseBody
 	public String selectTrayListByNo(String userNo){
 		List<Tray> trayList = trayService.getTrayListByUserNo(userNo);
@@ -68,6 +78,40 @@ public class UserExamController {
 			resMap.put("status", "300");
 		}
 		System.out.println(JsonUtil.Map2Json(resMap));
+		return JsonUtil.Map2Json(resMap);
+	}
+	
+	@RequestMapping("/selectStorageByNo")
+	@ResponseBody
+	public String selectStorageByNo(String userNo){
+		List<Storage> storageList = storageService.getStorageListByUser(userNo);
+		Map<String, Object> resMap = new LinkedHashMap<String, Object>();
+		if(storageList != null) {
+			resMap.put("status", "200");
+			List<Map<String, String>> storageInfoList = new LinkedList<Map<String, String>>();
+			Iterator<Storage> it = storageList.iterator();
+			while(it.hasNext()){
+				Storage temp = it.next();
+				storageInfoList.add(BeanUtil.toMap(temp));
+			}
+			resMap.put("storageInfoList", storageInfoList);
+		} else {
+			resMap.put("status", "300");
+		}
+		System.out.println(JsonUtil.Map2Json(resMap));
+		return JsonUtil.Map2Json(resMap);
+	}
+	
+	@RequestMapping("/updataScoreByNo")
+	@ResponseBody
+	public String updateScoreByNo(TempExamUser examUser){
+		boolean result = examUserService.updateScoreByUserAndExam(examUser);
+		Map<String, Object> resMap = new LinkedHashMap<String, Object>();
+		if(result) {
+			resMap.put("status", "200");
+		}else {
+			resMap.put("status", "300");
+		}
 		return JsonUtil.Map2Json(resMap);
 	}
 }

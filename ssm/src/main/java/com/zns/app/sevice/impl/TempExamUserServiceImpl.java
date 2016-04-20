@@ -61,4 +61,12 @@ public class TempExamUserServiceImpl implements ITempExamUserService{
 		return examUserDao.selectByUserNo(userNo);
 	}
 
+	@Override
+	public boolean updateScoreByUserAndExam(TempExamUser examUser) {
+		// TODO Auto-generated method stub
+		int result = examUserDao.updateScoreByUserAndExam(examUser);
+		if (result == 1) return true;
+		return false;
+	}
+
 }

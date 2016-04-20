@@ -22,4 +22,10 @@ public class StorageServiceImpl implements IStorageService {
 		return storageDao.selectByExamIdAndUser(map);
 	}
 
+	@Override
+	public List<Storage> getStorageListByUser(String userNo) {
+		// TODO Auto-generated method stub
+		return storageDao.selectByUserNo(userNo);
+	}
+
 }

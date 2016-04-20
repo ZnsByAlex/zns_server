@@ -90,4 +90,9 @@
       score = #{score,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <update id="updateScoreByUserAndExam" parameterType="com.zns.app.bean.TempExamUser" >
+    update t_examination_user_info
+    set score = #{score,jdbcType=INTEGER}
+    where userNo = #{userNo,jdbcType=VARCHAR} and examinationid = #{examinationid,jdbcType=INTEGER}
+  </update>
 </mapper>

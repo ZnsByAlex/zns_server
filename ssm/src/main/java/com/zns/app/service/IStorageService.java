@@ -19,4 +19,6 @@ public interface IStorageService {
 	 * @return
 	 */
 	public List<Storage> getStorageList(Map<String , Object> map);
+	
+	public List<Storage> getStorageListByUser(String userNo);
 }

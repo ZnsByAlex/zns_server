@@ -11,4 +11,6 @@ public interface IStorageDao {
     int insertSelective(Storage record);
     
     List<Storage> selectByExamIdAndUser(Map<String , Object> map);
+    
+    List<Storage> selectByUserNo(String userNo);
 }

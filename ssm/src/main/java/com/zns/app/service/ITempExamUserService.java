@@ -17,4 +17,6 @@ public interface ITempExamUserService {
 	public String insertExamUser(TempExamUser examuser);
 	
 	public TempExamUser selectByUserNo(String userNo);
+	
+	public boolean updateScoreByUserAndExam(TempExamUser examUser);
 }
