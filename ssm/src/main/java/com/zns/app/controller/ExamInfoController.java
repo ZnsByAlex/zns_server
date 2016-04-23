@@ -16,8 +16,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zns.app.bean.ExamInfo;
+import com.zns.app.bean.Material;
+import com.zns.app.bean.Order;
 import com.zns.app.bean.TempExamUser;
+import com.zns.app.bean.ZutuoGoods;
 import com.zns.app.service.IExamInfoService;
+import com.zns.app.service.IMaterialService;
+import com.zns.app.service.IOrderService;
+import com.zns.app.service.IZutuoGoodsService;
 import com.zns.app.util.BeanUtil;
 import com.zns.app.util.JsonUtil;
 
@@ -28,6 +34,14 @@ public class ExamInfoController {
 	@Resource
 	private IExamInfoService examInfoService;
 	
+	@Resource
+	private IMaterialService materialService;
+	
+	@Resource
+	private IOrderService orderService;
+	
+	@Resource
+	private IZutuoGoodsService zutuoGoodsService;
 	@RequestMapping("/getExamInfoList")
 	public ModelAndView getExamInfoList(){
 		List<ExamInfo> list = examInfoService.getExamInfoList();
@@ -114,5 +128,19 @@ public class ExamInfoController {
 	@RequestMapping("ajaxTest")
 	public String ajaxTest(){
 		return "ajaxTest";
+	}
+	
+	@RequestMapping("/selecExamInfo")
+	public ModelAndView selectExamInfo(Integer examId){
+		ModelAndView mav = new ModelAndView("exam");
+		List<Material> materialList = materialService.getMaterialListByExamId(examId);
+		List<ZutuoGoods> goodsList = zutuoGoodsService.selectByExamId(examId);
+		List<Order> orderList = orderService.getOrderList(examId);
+		
+		mav.addObject("MaterialInfo", materialList);
+		mav.addObject("ZutuoGoodsInfo", goodsList);
+		mav.addObject("OrderInfo", orderList);
+		
+		return mav;
 	}
 }
