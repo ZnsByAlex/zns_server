@@ -14,11 +14,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.zns.app.bean.ExamInfo;
 import com.zns.app.bean.Material;
 import com.zns.app.bean.Order;
+import com.zns.app.bean.TempExamUser;
 import com.zns.app.bean.ZutuoGoods;
+import com.zns.app.service.IExamInfoService;
 import com.zns.app.service.IMaterialService;
 import com.zns.app.service.IOrderService;
+import com.zns.app.service.ITempExamUserService;
 import com.zns.app.service.IZutuoGoodsService;
 import com.zns.app.util.BeanUtil;
 import com.zns.app.util.JsonUtil;
@@ -28,6 +32,9 @@ import com.zns.app.util.JsonUtil;
 public class ExamController {
 	@Resource
 	private IOrderService orderService;
+	
+	@Resource
+	private ITempExamUserService examUserService;
 	
 	@Resource
 	private IZutuoGoodsService zutuoGoodsService;
@@ -98,4 +105,17 @@ public class ExamController {
 		return JsonUtil.Map2Json(resMap);
 	}
 	
+	@RequestMapping("/updataScoreByNo")
+	@ResponseBody
+	public String updateExamUser(TempExamUser examUser){
+		boolean result = examUserService.updateExamUser(examUser);
+//		System.out.println(result);
+		Map<String, Object> resMap = new LinkedHashMap<String, Object>();
+		if(result) {
+			resMap.put("status", "200");
+		}else {
+			resMap.put("status", "300");
+		}
+		return JsonUtil.Map2Json(resMap);
+	}
 }

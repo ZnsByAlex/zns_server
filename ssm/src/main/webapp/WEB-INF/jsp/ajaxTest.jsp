@@ -14,8 +14,8 @@
             var age = $("#age").val();  
             $.ajax({  
                    type: "POST",  
-                   url: "userExam/updataScoreByNo",  
-                   data: {userNo:"3299", examinationid:"3", score:"90"},  
+                   url: "examInfo/selecExamInfo",  
+                   data: {examId:"1"},  
                    success:function(data){
                 	   data = eval("(" + data + ")");
                        alert("名字:" + data.status + " ");  

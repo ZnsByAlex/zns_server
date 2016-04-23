@@ -20,13 +20,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.zns.app.bean.AnalysisResult;
 import com.zns.app.bean.ExamInfo;
+import com.zns.app.bean.Storage;
 import com.zns.app.bean.TempExamUser;
+import com.zns.app.bean.Tray;
 import com.zns.app.bean.User;
 import com.zns.app.bean.ZutuoGoods;
 import com.zns.app.service.IAnalysisService;
 import com.zns.app.service.IExamInfoService;
+import com.zns.app.service.IStorageService;
 import com.zns.app.service.ITempExamUserService;
+import com.zns.app.service.ITrayService;
 import com.zns.app.service.IUserService;
 import com.zns.app.service.IZutuoGoodsService;
 import com.zns.app.util.BeanUtil;
@@ -36,6 +41,12 @@ import com.zns.app.util.JsonUtil;
 @RequestMapping("/user")
 public class UserController {
 
+	@Resource
+	private IStorageService storageService;
+	
+	@Resource
+	private ITrayService trayService;
+	
 	@Resource
 	private ITempExamUserService examUserService;
 	
@@ -349,6 +360,18 @@ public class UserController {
 		return JsonUtil.Map2Json(resMap);
 	}
 	
+	@RequestMapping("selectExamInfo")
+	public ModelAndView selectExamByNoAndId(String userNo){
+		ModelAndView mav = new ModelAndView("userExam");
+		List<Storage> storageList = storageService.getStorageListByUser(userNo);
+		List<Tray> trayList = trayService.getTrayListByUserNo(userNo);
+		List<AnalysisResult> analysisResultList = analysisService.getAnalysisResultByUserNo(userNo);
+		mav.addObject("AnalysisResultInfo", analysisResultList);
+		mav.addObject("TrayInfo", trayList);
+		mav.addObject("StorageInfo", storageList);
+		
+		return mav;
+	}
 	@RequestMapping("ajaxTest")
 	public String ajaxTest(){
 		return "ajaxTest";
