@@ -19,7 +19,7 @@ public interface ITempExamUserDao {
     
     List<TempExamUser> getExamUserList();
     
-    TempExamUser selectByUserNo(String userNo);
+    List<TempExamUser> selectByUserNo(String userNo);
     
     int updateScoreByUserAndExam(TempExamUser record);
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -20,14 +21,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zns.app.bean.ExamInfo;
-import com.zns.app.bean.User;
-import com.zns.app.bean.Storage;
 import com.zns.app.bean.TempExamUser;
+import com.zns.app.bean.User;
 import com.zns.app.bean.ZutuoGoods;
-import com.zns.app.dao.ITempExamUserDao;
 import com.zns.app.service.IAnalysisService;
 import com.zns.app.service.IExamInfoService;
-import com.zns.app.service.IStorageService;
 import com.zns.app.service.ITempExamUserService;
 import com.zns.app.service.IUserService;
 import com.zns.app.service.IZutuoGoodsService;
@@ -328,13 +326,22 @@ public class UserController {
 	@RequestMapping("/selectExam")
 	@ResponseBody
 	public String selectExam(String userNo, HttpServletRequest request,HttpServletResponse response){
-		TempExamUser result = examUserService.selectByUserNo(userNo);
+		List<TempExamUser> result = examUserService.selectByUserNo(userNo);
 		Map<String, Object> resMap = new LinkedHashMap<String, Object>();
 		if(result != null){
+			List<Map<String, Object>> tempList = new LinkedList<Map<String, Object>>();
+			Iterator<TempExamUser> it = result.iterator();
+			while(it.hasNext()){
+				HashMap<String, Object> tempMap = new HashMap<String, Object>();
+				TempExamUser temp = it.next();
+				tempMap.put("score", temp.getScore());
+				String examinationtitle = examInfoService.selectExamInfoById(temp.getExaminationid()).getExaminationtitle();
+				tempMap.put("examinationtitle", examinationtitle);
+				tempList.add(tempMap);
+			}
 			resMap.put("status", "200");
-			resMap.put("score", result.getScore());
-			String examinationtitle = examInfoService.selectExamInfoById(result.getExaminationid()).getExaminationtitle();
-			resMap.put("examinationtitle", examinationtitle);
+			resMap.put("examInfo", tempList);
+			
 		}else {
 			resMap.put("status", "201");
 		}

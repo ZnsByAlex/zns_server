@@ -56,7 +56,7 @@ public class TempExamUserServiceImpl implements ITempExamUserService{
 	}
 
 	@Override
-	public TempExamUser selectByUserNo(String userNo) {
+	public List<TempExamUser> selectByUserNo(String userNo) {
 		// TODO Auto-generated method stub
 		return examUserDao.selectByUserNo(userNo);
 	}
