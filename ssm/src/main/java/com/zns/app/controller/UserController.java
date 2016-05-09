@@ -114,7 +114,7 @@ public class UserController {
 			
 			System.out.println(JsonUtil.toJSon(LoginInfoMap));
 		}else{
-			LoginInfoMap.put("message", "���û���δ����");
+			LoginInfoMap.put("message", "登录失败");
 			LoginInfoMap.put("status", 300);
 		}
 		
@@ -169,7 +169,7 @@ public class UserController {
 		if(list.size()>0){
 
 			map.put("status", "200");
-			map.put("message", "��ȡ���ϳɹ�");
+			map.put("message", "获取组托物料成功");
 
 			
 			for(int i=0;i<list.size() ;i++){
@@ -195,7 +195,7 @@ public class UserController {
 		}else{
 
 			map.put("status", "300");
-			map.put("message", "��ȡ����ʧ��");
+			map.put("message", "获取物料失败");
 
 		}
 		
@@ -246,12 +246,12 @@ public class UserController {
 			
 			resp.put("status", "200");
 
-			resp.put("message", "�������");
+			resp.put("message", "组托成功");
 			resp.put("outTaskNo", "PLN-BO68S40I");
 
 		}else{
 			resp.put("status", "300");
-			resp.put("message", "閿熸枻鎷烽敓鏂ゆ嫹澶遍敓鏂ゆ嫹");
+			resp.put("message", "组托失败");
 		}
 		
 		return JsonUtil.Map2Json(resp);
@@ -327,7 +327,7 @@ public class UserController {
 		
 		json_Map.put("data", data_list);
 		json_Map.put("status", "200");
-		json_Map.put("message", "��ȡ�ϼܳɹ�");
+		json_Map.put("message", "获取上架信息成功");
 		
 		return JsonUtil.Map2Json(json_Map);
 	}
@@ -450,7 +450,7 @@ public class UserController {
 			storageService.updateStorageList(req_map);
 		}
 		json_Map.put("status", "200");
-		json_Map.put("message", "�ύ�ɹ�");
+		json_Map.put("message", "上架成功");
 		return JsonUtil.Map2Json(json_Map);
 	}
 

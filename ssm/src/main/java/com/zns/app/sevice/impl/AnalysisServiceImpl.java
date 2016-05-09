@@ -167,7 +167,8 @@ public class AnalysisServiceImpl implements IAnalysisService{
 		
 		Line line = lineDao.selectByPrimaryKey(examId);
 		LinkedHashMap<String, Object> map = new LinkedHashMap<String, Object>();
-		map.put("line", line.getLinePic());
+		if(line!=null)
+			map.put("line", line.getLinePic());
 		
 		return line;
 	}
