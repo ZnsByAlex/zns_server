@@ -22,4 +22,8 @@ public interface IStorageService {
 	
 	
 	public int updateStorageList(Map<String , Object> map);
+
+	
+	public List<Storage> getStorageListByUser(String userNo);
+
 }

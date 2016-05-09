@@ -15,4 +15,6 @@ public interface IMaterialService {
 	public Material selectMaterialById(Integer materialId);
 	
 	public String insertMaterial(Material material);
+	
+	public List<Material> getMaterialListByExamId(Integer examId);
 }

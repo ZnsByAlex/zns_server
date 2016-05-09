@@ -20,6 +20,12 @@
     from t_zutuo_tray
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="getTrayListByUserNo" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_zutuo_tray
+    where userNo = #{userNo,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_zutuo_tray
     where id = #{id,jdbcType=INTEGER}

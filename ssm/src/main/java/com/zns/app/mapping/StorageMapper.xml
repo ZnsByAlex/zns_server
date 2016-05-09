@@ -82,11 +82,18 @@
   </insert>
   
   <select id="selectByExamIdAndUser" resultMap="BaseResultMap" parameterType="java.util.Map">
-  
 	  select 
 	  <include refid="Base_Column_List" />  
+
 	  from t_storage_info where userNo = #{userNo,jdbcType=VARCHAR} and examId = #{questionId}
-  
+
+  </select>
+  <select id="selectByUserNo" resultMap="BaseResultMap" parameterType="java.lang.String">
+	  select 
+	  <include refid="Base_Column_List" />  
+	  from t_storage_info 
+	  where userNo = #{userNo,jdbcType=VARCHAR}
+
   </select>
   
   <update id="updateStorage" parameterType="java.util.Map">

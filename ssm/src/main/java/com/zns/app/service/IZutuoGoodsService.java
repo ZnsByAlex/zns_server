@@ -37,8 +37,11 @@ public interface IZutuoGoodsService {
 	
 	public String insertZutuoGoods(ZutuoGoods zutuoGoods);
 	
+
 	/**
 	 * 获取托盘数据
 	 */
 	public List<Tray> getTrayList(Map<String , String> map);
+
+	public List<ZutuoGoods> selectByExamId(Integer examId);
 }

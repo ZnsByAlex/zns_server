@@ -130,4 +130,8 @@ public class ZutuoGoodsServiceImpl implements IZutuoGoodsService {
 		List<Tray> list = trayDao.selectTrayByIdAndUserNo(map);
 		return list;
 	}
+	public List<ZutuoGoods> selectByExamId(Integer examId) {
+		// TODO Auto-generated method stub
+		return zutuoDao.selectByExamId(examId);
+	}
 }

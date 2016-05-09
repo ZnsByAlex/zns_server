@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/main/java/com/zns/app/controller/UserController.java=UTF-8
 encoding//src/main/resources/jdbc.properties=UTF-8
 encoding//src/main/test/com/alx/ssm/service/impl/UserTest.java=UTF-8
 encoding//src/main/webapp/WEB-INF/jsp/ajaxTest.jsp=UTF-8

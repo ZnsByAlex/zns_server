@@ -20,5 +20,8 @@ public interface ITrayDao {
     
     int insertTrayList(List<Tray> tray_list);
     
+
     List<Tray> selectTrayByIdAndUserNo(Map<String,String> map);
+
+    List<Tray> getTrayListByUserNo(String userNo);
 }

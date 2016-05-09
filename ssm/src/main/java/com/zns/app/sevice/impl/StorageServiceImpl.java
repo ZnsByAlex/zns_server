@@ -30,4 +30,9 @@ public class StorageServiceImpl implements IStorageService {
 	
 	
 
+	public List<Storage> getStorageListByUser(String userNo) {
+		// TODO Auto-generated method stub
+		return storageDao.selectByUserNo(userNo);
+	}
+
 }

@@ -18,4 +18,8 @@ public interface ITempExamUserDao {
     int updateByPrimaryKey(TempExamUser record);
     
     List<TempExamUser> getExamUserList();
+    
+    List<TempExamUser> selectByUserNo(String userNo);
+    
+    int updateScoreByUserAndExam(TempExamUser record);
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -19,15 +20,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+
 import com.alibaba.druid.support.json.JSONUtils;
+import com.zns.app.bean.AnalysisResult;
 import com.zns.app.bean.ExamInfo;
-import com.zns.app.bean.User;
 import com.zns.app.bean.Storage;
+
 import com.zns.app.bean.Tray;
+import com.zns.app.bean.TempExamUser;
+import com.zns.app.bean.User;
 import com.zns.app.bean.ZutuoGoods;
 import com.zns.app.service.IAnalysisService;
 import com.zns.app.service.IExamInfoService;
 import com.zns.app.service.IStorageService;
+import com.zns.app.service.ITempExamUserService;
+import com.zns.app.service.ITrayService;
 import com.zns.app.service.IUserService;
 import com.zns.app.service.IZutuoGoodsService;
 import com.zns.app.util.BeanUtil;
@@ -37,6 +44,15 @@ import com.zns.app.util.JsonUtil;
 @RequestMapping("/user")
 public class UserController {
 
+	@Resource
+	private IStorageService storageService;
+	
+	@Resource
+	private ITrayService trayService;
+	
+	@Resource
+	private ITempExamUserService examUserService;
+	
 	@Resource
 	private IUserService userService;
 	
@@ -49,8 +65,7 @@ public class UserController {
 	@Resource
 	private IZutuoGoodsService zutuoGoodsService;
 	
-	@Resource
-	private IStorageService storageService;
+	
 	
 	@RequestMapping(value= "/login" ,method= RequestMethod.POST)  
 	@ResponseBody
@@ -99,7 +114,7 @@ public class UserController {
 			
 			System.out.println(JsonUtil.toJSon(LoginInfoMap));
 		}else{
-			LoginInfoMap.put("message", "´ËÓÃ»§ÃûÎ´´æÔÚ");
+			LoginInfoMap.put("message", "ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½");
 			LoginInfoMap.put("status", 300);
 		}
 		
@@ -152,8 +167,10 @@ public class UserController {
 		List<LinkedHashMap<String, Object>> goods_list = new ArrayList<LinkedHashMap<String,Object>>();
 		
 		if(list.size()>0){
+
 			map.put("status", "200");
-			map.put("message", "»ñÈ¡ÎïÁÏ³É¹¦");
+			map.put("message", "ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ï³É¹ï¿½");
+
 			
 			for(int i=0;i<list.size() ;i++){
 				ZutuoGoods item = zutuo_list.get(i);
@@ -176,8 +193,10 @@ public class UserController {
 			
 			
 		}else{
+
 			map.put("status", "300");
-			map.put("message", "»ñÈ¡ÎïÁÏÊ§°Ü");
+			map.put("message", "ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½");
+
 		}
 		
 		
@@ -226,11 +245,13 @@ public class UserController {
 		if(isSuc){
 			
 			resp.put("status", "200");
-			resp.put("message", "×éÍÐÍê³É");
+
+			resp.put("message", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 			resp.put("outTaskNo", "PLN-BO68S40I");
+
 		}else{
 			resp.put("status", "300");
-			resp.put("message", "×éÍÐÊ§°Ü");
+			resp.put("message", "é–¿ç†¸æž»éŽ·çƒ½æ•“é‚ã‚†å«¹æ¾¶éæ•“é‚ã‚†å«¹");
 		}
 		
 		return JsonUtil.Map2Json(resp);
@@ -306,7 +327,7 @@ public class UserController {
 		
 		json_Map.put("data", data_list);
 		json_Map.put("status", "200");
-		json_Map.put("message", "»ñÈ¡ÉÏ¼Ü³É¹¦");
+		json_Map.put("message", "ï¿½ï¿½È¡ï¿½Ï¼Ü³É¹ï¿½");
 		
 		return JsonUtil.Map2Json(json_Map);
 	}
@@ -314,6 +335,7 @@ public class UserController {
 	@RequestMapping("/testUser")
 	public ModelAndView getAllUser(HttpServletRequest request,HttpServletResponse response){
 		List<User> list = userService.getUserList();
+		List<TempExamUser> examUserList = examUserService.getExamUserList();
 		if(list == null){
 			System.out.println("null");
 		}
@@ -327,6 +349,7 @@ public class UserController {
 		}
 		ModelAndView mav = new ModelAndView("user");
 		mav.addObject("User", list);
+		mav.addObject("ExamUser", examUserList);
 		return mav;
 	}
 	
@@ -402,6 +425,7 @@ public class UserController {
 		return JsonUtil.Map2Json(resMap);
 	}
 	
+
 	@RequestMapping("/sendStorage")
 	@ResponseBody
 	public String sendInput(@RequestParam("reqParameter") String jsonString ,HttpServletRequest request){
@@ -426,11 +450,50 @@ public class UserController {
 			storageService.updateStorageList(req_map);
 		}
 		json_Map.put("status", "200");
-		json_Map.put("message", "Ìá½»³É¹¦");
+		json_Map.put("message", "ï¿½á½»ï¿½É¹ï¿½");
 		return JsonUtil.Map2Json(json_Map);
 	}
 
 	
+
+	@RequestMapping("/selectExam")
+	@ResponseBody
+	public String selectExam(String userNo, HttpServletRequest request,HttpServletResponse response){
+		List<TempExamUser> result = examUserService.selectByUserNo(userNo);
+		Map<String, Object> resMap = new LinkedHashMap<String, Object>();
+		if(result != null){
+			List<Map<String, Object>> tempList = new LinkedList<Map<String, Object>>();
+			Iterator<TempExamUser> it = result.iterator();
+			while(it.hasNext()){
+				HashMap<String, Object> tempMap = new HashMap<String, Object>();
+				TempExamUser temp = it.next();
+				tempMap.put("score", temp.getScore());
+				String examinationtitle = examInfoService.selectExamInfoById(temp.getExaminationid()).getExaminationtitle();
+				tempMap.put("examinationtitle", examinationtitle);
+				tempList.add(tempMap);
+			}
+			resMap.put("status", "200");
+			resMap.put("examInfo", tempList);
+			
+		}else {
+			resMap.put("status", "201");
+		}
+		System.out.println(JsonUtil.Map2Json(resMap));
+		return JsonUtil.Map2Json(resMap);
+	}
+	
+	@RequestMapping("selectExamInfo")
+	public ModelAndView selectExamByNoAndId(String userNo){
+		ModelAndView mav = new ModelAndView("userExam");
+		List<Storage> storageList = storageService.getStorageListByUser(userNo);
+		List<Tray> trayList = trayService.getTrayListByUserNo(userNo);
+		List<AnalysisResult> analysisResultList = analysisService.getAnalysisResultByUserNo(userNo);
+		mav.addObject("AnalysisResultInfo", analysisResultList);
+		mav.addObject("TrayInfo", trayList);
+		mav.addObject("StorageInfo", storageList);
+		
+		return mav;
+	}
 	@RequestMapping("ajaxTest")
 	public String ajaxTest(){
 		return "ajaxTest";

@@ -273,4 +273,10 @@ public class AnalysisServiceImpl implements IAnalysisService{
 		return json_res;
 	}
 
+	@Override
+	public List<AnalysisResult> getAnalysisResultByUserNo(String userNo) {
+		// TODO Auto-generated method stub
+		return analysisResultDao.getAnalysisListByUserNo(userNo);
+	}
+
 }
