@@ -42,7 +42,7 @@ public class ClientController {
 			System.out.println(tem.getClientTel());
 			System.out.print(tem.getClientType());
 		}
-		ModelAndView mav = new ModelAndView("testUser");
+		ModelAndView mav = new ModelAndView("client");
 		mav.addObject("Client", list);
 		return mav;
 	}

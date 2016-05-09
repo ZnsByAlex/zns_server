@@ -41,7 +41,7 @@ public class OrderController {
 //			System.out.print(tem.getUserName());
 //			System.out.println(tem.getUserNo());
 //		}
-		ModelAndView mav = new ModelAndView("testUser");
+		ModelAndView mav = new ModelAndView("login");
 		mav.addObject("Order", list);
 		return mav;
 	}

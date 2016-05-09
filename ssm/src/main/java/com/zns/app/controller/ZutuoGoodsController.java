@@ -42,7 +42,7 @@ public class ZutuoGoodsController {
 			System.out.println(tem.getGoodsno());
 			System.out.print(tem.getGoodsname());
 		}
-		ModelAndView mav = new ModelAndView("testUser");
+		ModelAndView mav = new ModelAndView("goods");
 		mav.addObject("ZutuoGoods", list);
 		return mav;
 	}

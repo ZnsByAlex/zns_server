@@ -56,7 +56,7 @@ public class ExamInfoController {
 			System.out.println(tem.getExaminationno());
 			System.out.print(tem.getExaminationtitle());
 		}
-		ModelAndView mav = new ModelAndView("testUser");
+		ModelAndView mav = new ModelAndView("examInfo");
 		mav.addObject("ExamInfo", list);
 		return mav;
 	}

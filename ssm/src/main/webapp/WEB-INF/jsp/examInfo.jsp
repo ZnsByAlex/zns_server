@@ -42,53 +42,28 @@
 			}
 		}
 		
-		function getUserSuccess(data){
+		function getInfoSuccess(data){
 			//请求成功,验证信息
 			console.log("request success");
 			console.log("status:"+data.status);
 			//var obj = JSON.parse(data);
 			data = eval("(" + data + ")");
 			
-			var userInfo = data.userInfo;
+			var examInfoInfo = data.examInfoInfo;
 			if(data.status == "200"){
 				//alert(data.userInfo.userNo);
 				//document.getElementById("userNo").value="test";
 				//$('#userNo').val("");
-				$('#id').val(data.userInfo.id);
-				$('#userNo').val(data.userInfo.userNo);
-				$('#userName').val(data.userInfo.userName);
-				$('#userPwd').val(data.userInfo.userPwd);
-				$('#tel').val(data.userInfo.tel);
-				$('#school').val(data.userInfo.school);
-				$('#type').val(data.userInfo.type);
+				$('#recordid').val(data.examInfoInfo.recordid);
+				$('#examinationno').val(data.examInfoInfo.examinationno);
+				$('#examinationtitle').val(data.examInfoInfo.examinationtitle);
+				$('#examinfourl').val(data.examInfoInfo.examinfourl);
 			}else{
 				//验证失败，弹出错误信息
 				console.log("获取失败");
 			}
 		}
 		
-		function getExamSuccess(data){
-			//请求成功,验证信息
-			console.log("request success");
-			console.log("status:"+data.status);
-			//var obj = JSON.parse(data);
-			data = eval("(" + data + ")");
-			
-			if(data.status == "200"){
-				$('#examinationtitle').val(data.examInfo[0].examinationtitle);
-				var score = data.examInfo[0].score;
-				alert(score);
-				if(score == null){
-					$('#score').val("未打分");
-				}else
-					$('#score').val(data.examInfo[0].score);
-			}else if(data.status == "201"){
-				$('#examinationtitle').val("未做题");
-			}else{
-				//验证失败，弹出错误信息
-				console.log("获取失败");
-			}
-		}
 		
 		//网络错误
 		function onError(data, status){
@@ -122,20 +97,6 @@
 			console.log(data);
 		}
 		
-		function deleteSingleFood(foodvalue){
-			console.log(foodvalue);
-			theData = "Id="+foodvalue;
-			console.log("data:"+theData);
-			$.ajax({
-				type: "POST",
-				url: "delete",
-				cache: false,
-				data: theData,
-				dataType: "json",
-				success: deleteSingleSuccess,
-				error: onError
-			});
-		}
 		
 		$(document).ready(function(){
 			/*添加单个菜品*/
@@ -154,27 +115,26 @@
                 });
 			});
 			
-			$('#add-user').bind('click',function(){
-                if(checkName()&&checkPwd()&&checkUserNo){
-                	var userId = $('#id').val();
-                	alert(userId);
-                	if(userId == ""){
-                		insertUser();
+			$('#add').bind('click',function(){
+                if(checkA()&&checkB()&&checkC()){
+                	var id = $('#recordid').val();
+                	alert(id);
+                	if(id == ""){
+                		insertInfo();
                 	}else{
-                		
-                		updateUser();
+                		updateInfo();
                 	}
                 }
 				return false;
 			});
             
             function insertUser(){
-            	var userData = $('#userData').serialize();
+            	var myData = $('#myData').serialize();
 				$.ajax({
                   type: "POST",
                   url: "insert",
                   cache: false,
-                  data:userData,
+                  data:myData,
                   dataType: "json",
                   success: function(data){
                 	  data = eval("(" + data + ")");
@@ -192,13 +152,13 @@
                 });
             }
             
-            function updateUser(){
-            	var userData = $('#userData').serialize();
+            function updateInfo(){
+            	var myData = $('#myData').serialize();
 				$.ajax({
                   type: "POST",
                   url: "update",
                   cache: false,
-                  data:userData,
+                  data:myData,
                   dataType: "json",
                   success: function(data){
                 	  data = eval("(" + data + ")");
@@ -216,10 +176,10 @@
                 });
             }
             
-            function checkName()  //检查Name
+            function checkA()  //检查Name
             {
-                var myname=document.getElementById("userName").value;
-                var myDivname=document.getElementById("userNameMessage");
+                var myname=document.getElementById("examinationno").value;
+                var myDivname=document.getElementById("aMessage");
                 if(myname=="")
                 {
                     myDivname.innerHTML="<font color='red'>(User Name Can't Be Empty!)</font>";
@@ -232,35 +192,26 @@
                 }
             }
         
-            function checkPwd()  //检查Pwd
+            function checkB()  //检查Pwd
             {
-                var myname=document.getElementById("userPwd").value;
-                var myDivname=document.getElementById("userPwdMessage");
+                var myname=document.getElementById("examinationtitle").value;
+                var myDivname=document.getElementById("bMessage");
                 if(myname=="")
                 {
                     myDivname.innerHTML="<font color='red'>(User Password Can't Be Empty!)</font>";
                     return false;
                 }
-                for(var i=0;i<myname.length;i++)
-                {
-                    var text=myname.charAt(i);
-                    if(!(text<=9&&text>=0))
-                    {
-                     myDivname.innerHTML="<font color='red'>(User Password Must Be Composed Of Digital!)</font>";
-                     break;
-                    }
-                }
-                if(i>=myname.length)
+                else
                 {
                     myDivname.innerHTML="<font color='red'>√</font>";
                     return true;
                 }
             }
         
-            function checkUserNo()  //检查foodMeterial
+            function checkC()  //检查foodMeterial
             {
-                var myname=document.getElementById("userNo").value;
-                var myDivname=document.getElementById("userNoMessage");
+                var myname=document.getElementById("examinfourl").value;
+                var myDivname=document.getElementById("cMessage");
                 if(myname=="")
                 {
                     myDivname.innerHTML="<font color='red'>(User No Can't Be Empty!)</font>";
@@ -281,7 +232,8 @@
  				}
 			}
 			
-			$('.deleteSingleUser').bind('click',function(){
+			$('.deleteSingleInfo').bind('click',function(){
+				console.log("a的值为:"+$('.deleteSingleInfo').val());
 				theData = $(this).val();
 				console.log("data:"+theData);
 				$.ajax({
@@ -295,27 +247,66 @@
 				});
 			});
 			
-			$('.editSingleUser').bind('click',function(){
+			$('.editSingleInfo').bind('click',function(){
+				console.log("a的值为:"+$('.editSingleInfo').val());
 				theData = $(this).val();
 				console.log("data:"+theData);
 				$.ajax({
 					type: "POST",
 					url: "selectid",
-                    data: {id:theData},
+                    data: {recordid:theData},
                     dataType: "json",
-					success: getUserSuccess,
+					success: getInfoSuccess,
 					error: onError
 				});
 			});
 			
-			$('.viewUserScore').bind('click',function(){
-				
+			$('#viewMaterial').bind('click',function(){
 				theData = $(this).val();
-				$('#setScore').val(theData);
 				console.log("data:"+theData);
 				$.ajax({
 					type: "POST",
-					url: "selectExam",
+					url: "selectMateriaById",
+                    data: {recordid:theData},
+                    dataType: "json",
+					success: viewSuccess,
+					error: onError
+				});
+			});
+			
+			$('#viewZutuo').bind('click',function(){
+				theData = $(this).val();
+				console.log("data:"+theData);
+				$.ajax({
+					type: "POST",
+					url: "selectGoodById",
+                    data: {recordid:theData},
+                    dataType: "json",
+					success: getInfoSuccess,
+					error: onError
+				});
+			});
+			
+			$('#viewOrder').bind('click',function(){
+				theData = $(this).val();
+				console.log("data:"+theData);
+				$.ajax({
+					type: "POST",
+					url: "selectOrderById",
+                    data: {recordid:theData},
+                    dataType: "json",
+					success: getInfoSuccess,
+					error: onError
+				});
+			});
+			
+			$('.viewExam').bind('click',function(){
+				
+				theData = $(this).val();
+				console.log("data:"+theData);
+				$.ajax({
+					type: "POST",
+					url: "selectid",
                     data: {userNo:theData},
                     dataType: "json",
 					success: getExamSuccess,
@@ -323,27 +314,19 @@
 				});
 			});
 			
-			$('#setScore1').bind('click',function(){
-
-				theData = $(this).val();
-				var examUserNo = $('#examUserNo').val();
-				console.log("data:"+theData);
-				$.ajax({
-					type: "POST",
-					url: "selectUserExam",
-                    data: {userNo:examUserNo},
-                    dataType: "json",
-					success: function(){
-						
-					},
-					error: onError
-				});
-			});
+			function viewSuccess(data){
+				if(data.status == "200"){
+					window.location.href = "exam";
+				}else{
+					console.log("无数据");
+				}
+			}
             
             $('#preview').bind('click',function(){
-				$('#userNo').val("");
-                $('#userName').val("");
-                $('#userPwd').val("");
+            	$('#clientId').val("");
+				$('#clientName').val("");
+                $('#clientShortName').val("");
+                $('#clientType').val("");
 			});
             //全选or反选
             $('#selectall').bind('click',function(){
@@ -402,7 +385,7 @@
 				<div class="box">
 					<!-- Box Head -->
 					<div class="box-head">
-						<h2 class="left">用户列表</h2>
+						<h2 class="left">题目列表</h2>
                         <!--
 						<div class="right">
 							<label>search articles</label>
@@ -420,31 +403,43 @@
 							<table width="100%" border="0" cellspacing="0" cellpadding="0">
 								<tr>
 									<th width="13"><input type="checkbox" class="checkbox" id="selectall"/></th>
-									<th>用户编号</th>
-									<th>用户名</th>
-									<th>手机号码</th>
-									<th>学校</th>
-									<th>类型</th>
-									<th width="200" class="ac">操作</th>
+									<th>题目编号</th>
+									<th>题目标题</th>
+									<th>说明网页</th>
+									<th width="110" class="ac">操作</th>
 								</tr>
 
-							<c:forEach items="${User}" var="item">
+							<c:forEach items="${ExamInfo}" var="item">
 								<tr class="odd">
-									<td><input type="checkbox" class="checkbox" name="foodCheckbox[]" value="${item.id}"/></td>
-									<td>${item.userNo}</td>
-									<td>${item.userName}</td>
-									<td>${item.tel}</td>
-									<td>${item.school}</td>
-									<td>${item.type}</td>
+									<td><input type="checkbox" class="checkbox" name="foodCheckbox[]" value="${item.recordid}"/></td>
+									<td>${item.examinationno}</td>
+									<td>${item.examinationtitle}</td>
+									<td>${item.examinfourl}</td>
 									<td>
-									<button id="viewUserScore" class="viewUserScore button" type="button" value="${item.userNo}" style="margin: 0 10px;">查看分数</button>
-									<button id="deleteSingleUser" class="deleteSingleUser button" value="${item.id}" style="margin: 0 10px;">删除</button>
-									<button id="editSingleUser" class="editSingleUser button" type="button" value="${item.id}">编辑</button></td>
+
+									<button class="deleteSingleInfo button" value="${item.recordid}" style="margin: 0 10px;">删除</button>
+									<button class="editSingleInfo button" type="button" value="${item.recordid}">编辑</button></td>
 								</tr>
 							</c:forEach>
 							</table>
 						</form>
 						
+						<!-- Pagging 
+						<div class="pagging">
+							<div class="left">Showing 1-12 of 44</div>
+							<div class="right">
+								<a href="#">Previous</a>
+								<a href="#">1</a>
+								<a href="#">2</a>
+								<a href="#">3</a>
+								<a href="#">4</a>
+								<a href="#">245</a>
+								<span>...</span>
+								<a href="#">Next</a>
+								<a href="#">View all</a>
+							</div>
+						</div>
+						 End Pagging -->
 						
 					</div>
 					<!-- Table -->
@@ -460,33 +455,21 @@
 					</div>
 					<!-- End Box Head -->
 					
-					<form action="#" method="post" id="userData" class="userData" name="userData">
+					<form action="#" method="post" id="myData" class="myData" name="myData">
 						<!-- Form -->
 						<div class="form">
-								<input type="hidden" class="field size1" name="id" id="id"/>
+								<input type="hidden" class="field size1" name="recordid" id="recordid"/>
                                 <p>
-                                    <label>用户编号<span id="userNoMessage">(Required Field)</span></label>
-                                    <input type="text" class="field size1" name="userNo" id="userNo"/>
+                                    <label>题目编号<span id="aMessage">(Required Field)</span></label>
+                                    <input type="text" class="field size1" name="examinationno" id="examinationno"/>
                                 </p>
 								<p>
-									<label>用户名<span id="userNameMessage">(Required Field)</span></label>
-									<input type="text" class="field size1" name="userName" id="userName"/>
+									<label>题目标题<span id="bMessage">(Required Field)</span></label>
+									<input type="text" class="field size1" name="examinationtitle" id="examinationtitle"/>
 								</p>
                             	<p>
-									<label>密码<span id="userPwdMessage">(Required Field)</span></label>
-									<input type="text" class="field size1" name="userPwd" id="userPwd"/>
-								</p>
-                            	<p>
-									<label>手机号码<span id="userTelMessage">(Required Field)</span></label>
-									<input type="text" class="field size1" name="tel" id="tel"/>
-								</p>
-                                <p>
-									<label>学校<span id="schoolMessage">(Required Field)</span></label>
-									<input type="text" class="field size1" name="school" id="school"/>
-								</p>
-								<p>
-									<label>类型<span id="typeMessage">(Required Field)</span></label>
-									<input type="text" class="field size1" name="type" id="type"/>
+									<label>说明网站<span id="cMessage">(Required Field)</span></label>
+									<input type="text" class="field size1" name="examinfourl" id="examinfourl"/>
 								</p>
 							
 						</div>
@@ -496,7 +479,7 @@
 						<div class="buttons">
              	 			<input type="hidden" value="insert" name="Operation">
                             <input type="button" class="button" value="重置" id="preview"/>
-							<button id="add-user" class="button" data-inline="true">提交</button>
+							<button id="add" class="button" data-inline="true">提交</button>
 						</div>
 						<!-- End Form Buttons -->
 					</form>
@@ -514,27 +497,24 @@
 					
 					<!-- Box Head -->
 					<div class="box-head">
-						<h2>题目信息</h2>
+						<h2>题目列表</h2>
 					</div>
 					<!-- End Box Head-->
 					
 					<div class="box-content">
-					<div class="form">
-						<input type="hidden" class="field size1" name="examUserNo" id="examUserNo"/>
-					 	<p>
-							<label>题目标题<span id="2Message"></span></label>
-							<input type="text" class="field size4" name="examinationtitle" id="examinationtitle"/>
-					 	</p>
-					 	<p>
-							<label>分数<span id="3Message"></span></label>
-							<input type="text" class="field size4" name="score" id="score"/>
-					 	</p>
-					 </div>	
-					<div class="buttons">
-					<form id="set" action="selectExamInfo" method="POST" >
-						<button id="setScore" name="userNo" value="">打分</button>
-					</form>
-					</div>
+						
+						<c:forEach items="${ExamInfo}" var="item">
+						<form id="select" action="selecExamInfo" method="POST">
+						<div float:right;>
+						<span>${item.examinationtitle}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+						<button id="view" name="examId" value="${item.recordid}">题目内容</button>
+						</div>
+						</form>
+		
+						<div class="sort">
+						</div>
+						
+						</c:forEach>
 					</div>
 				</div>
 				<!-- End Box -->
