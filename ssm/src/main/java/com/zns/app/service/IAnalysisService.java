@@ -3,6 +3,8 @@ package com.zns.app.service;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import com.zns.app.bean.Line;
+
 public interface IAnalysisService {
 	/**题目分析数据的json*/
 	public String analysisData(); 
@@ -20,7 +22,8 @@ public interface IAnalysisService {
 	public List<LinkedHashMap<String, Object>> customer(Integer examId); 
 	
 	/**路线信息*/
-	public LinkedHashMap<String, Object> line(Integer examId);
+	public Line line(Integer examId);
+	
 	
 	/**路线客户信息*/
 	public List<LinkedHashMap<String, Object>> lineCustom(Integer examId);

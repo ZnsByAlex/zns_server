@@ -9,11 +9,12 @@
     <result column="goodsName" property="goodsname" jdbcType="VARCHAR" />
     <result column="goodsNum" property="goodsnum" jdbcType="VARCHAR" />
     <result column="goodsId" property="goodsid" jdbcType="VARCHAR" />
+    <result column="goodsNo" property="goodsnd" jdbcType="VARCHAR" />
     <result column="goodsUnit" property="goodsunit" jdbcType="VARCHAR" />
   </resultMap>
   
   <sql id="Base_Column_List" >
-    userNo , examId, trayNo, storageNo , goodsName , goodsNum , goodsId , goodsUnit
+    userNo , examId, trayNo, storageNo , goodsName , goodsNum , goodsId,goodsNo , goodsUnit
   </sql>
   
   <insert id="insert" parameterType="com.zns.app.bean.Storage" >
@@ -84,8 +85,27 @@
   
 	  select 
 	  <include refid="Base_Column_List" />  
-	  from t_storage_info where userNo = #{userNo,jdbcType=VARCHAR} and examId = #{examId}
+	  from t_storage_info where userNo = #{userNo,jdbcType=VARCHAR} and examId = #{questionId}
   
   </select>
+  
+  <update id="updateStorage" parameterType="java.util.Map">
+  	update t_storage_info 
+  	set trayNo=#{trayNo}
+  	where storageNo = #{storageNo} and userNo = #{userNo} and examId = #{questionId}
+  	
+  </update>
+  
+<!--  <update id="updateStorage"  parameterType="java.util.List">   -->
+       
+<!--          <foreach collection="list" item="item" index="index" open="" close="" separator=";">   -->
+<!--                update t_storage_info    -->
+<!--                <set>   -->
+<!--                  trayNo=${item.trayNo}   -->
+<!--                </set>   -->
+<!--                where storageNo = ${item.storageNo}   -->
+<!--         </foreach>   -->
+           
+<!--    </update>   -->
   
 </mapper>

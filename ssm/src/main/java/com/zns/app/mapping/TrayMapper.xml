@@ -9,10 +9,10 @@
     <result column="goodsNum" property="goodsnum" jdbcType="VARCHAR" />
     <result column="sLcationNo" property="slcationno" jdbcType="VARCHAR" />
     <result column="receptorderNo" property="receptorderno" jdbcType="VARCHAR" />
-    <result column="order_from_no" property="orderFromNo" jdbcType="VARCHAR" />
+    <result column="orderFromNo" property="orderFromNo" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, zutuo_goods_no, trayNo, goodsName, goodsNum, sLcationNo, receptorderNo, order_from_no
+    id, zutuo_goods_no, trayNo, goodsName, goodsNum, sLcationNo, receptorderNo, orderFromNo
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -137,4 +137,11 @@
       order_from_no = #{orderFromNo,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectTrayByIdAndUserNo" resultMap="BaseResultMap" parameterType="java.util.Map">
+  
+	  select 
+	  <include refid="Base_Column_List" />  
+	  from t_zutuo_tray where userNo = #{userNo,jdbcType=VARCHAR} and examId = #{questionId}
+  
+  </select> 
 </mapper>

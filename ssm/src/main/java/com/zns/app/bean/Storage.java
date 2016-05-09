@@ -14,6 +14,8 @@ public class Storage {
     private String goodsnum;
 
     private String goodsid;
+    
+    private String goodsno;
 
     private String goodsunit;
 
@@ -69,7 +71,17 @@ public class Storage {
         return goodsid;
     }
 
-    public void setGoodsid(String goodsid) {
+    
+    
+    public String getGoodsno() {
+		return goodsno;
+	}
+
+	public void setGoodsno(String goodsno) {
+		this.goodsno = goodsno;
+	}
+
+	public void setGoodsid(String goodsid) {
         this.goodsid = goodsid;
     }
 

@@ -40,7 +40,12 @@ public class ZutuoGoodsServiceImpl implements IZutuoGoodsService {
 	@Override
 	public boolean getZutuoResult(String json_result) {
 		
-		Map<String , Object> req_map = JsonUtil.Json2Map(json_result);
+		
+		List<LinkedHashMap<String, Object>> trayInfoList = JsonUtil.json2List(json_result);
+		trayInfoList = JsonUtil.json2List(json_result);
+//		Map<String , Object> userLoginMap = new HashMap<String, Object>();
+		LinkedHashMap<String, Object> req_map = (LinkedHashMap<String, Object>) trayInfoList.get(0).get("$mobileGroupTray");
+		
 		String userNo = (String) req_map.get("userNo");
 		String examId = (String) req_map.get("questionId");
 		
@@ -51,10 +56,12 @@ public class ZutuoGoodsServiceImpl implements IZutuoGoodsService {
 			LinkedHashMap<String , Object> info = temp.get(i);
 			
 			Tray tray = new Tray();
-			tray.setUserNo((String)info.get("userNo"));
-			tray.setExamId(Integer.parseInt((String) info.get("questionId")));
+			tray.setUserNo(userNo);
+			tray.setExamId(Integer.parseInt(examId));
 			tray.setTrayno((String)info.get("trayNo"));
 			tray.setZutuoGoodsNo((String)info.get("goodsNo"));
+			tray.setGoodsname(getZutuoByIdAndNo(Integer.parseInt(examId), (String)info.get("goodsNo")).getGoodsname());
+			
 			tray.setGoodsnum((String)info.get("goodsNum"));
 			tray.setReceptorderno((String)info.get("receptorderNo"));
 			
@@ -74,6 +81,8 @@ public class ZutuoGoodsServiceImpl implements IZutuoGoodsService {
 		// TODO Auto-generated method stub
 		return zutuoDao.getZutuoList();
 	}
+	
+	
 
 	@Override
 	public boolean deleteZutuoByIdAndNo(Integer examId, String goodsNo) {
@@ -114,5 +123,11 @@ public class ZutuoGoodsServiceImpl implements IZutuoGoodsService {
 		int result = zutuoDao.insertSelective(zutuoGoods);
 		if (result == 1) return "success";
 		return "Unknown Error";
+	}
+
+	@Override
+	public List<Tray> getTrayList(Map<String, String> map) {
+		List<Tray> list = trayDao.selectTrayByIdAndUserNo(map);
+		return list;
 	}
 }

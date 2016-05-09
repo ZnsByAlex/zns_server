@@ -3,6 +3,7 @@ package com.zns.app.service;
 import java.util.List;
 import java.util.Map;
 
+import com.zns.app.bean.Tray;
 import com.zns.app.bean.ZutuoGoods;
 
 public interface IZutuoGoodsService {
@@ -35,4 +36,9 @@ public interface IZutuoGoodsService {
 	public ZutuoGoods getZutuoByIdAndNo(Integer examId, String goodsNo);
 	
 	public String insertZutuoGoods(ZutuoGoods zutuoGoods);
+	
+	/**
+	 * 获取托盘数据
+	 */
+	public List<Tray> getTrayList(Map<String , String> map);
 }

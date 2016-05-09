@@ -1,6 +1,7 @@
 package com.zns.app.sevice.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,21 +59,26 @@ public class AnalysisServiceImpl implements IAnalysisService{
 		String json_req = null;
 		
 		LinkedHashMap<String, Object> map = new LinkedHashMap<String, Object>();
+		List<LinkedHashMap<String, Object>> data_list = new ArrayList<LinkedHashMap<String, Object>>();
 		LinkedHashMap<String, Object> data_map = null;
-		map.put("status", 200);
+		map.put("status", "200");
 		
 		if(temp!=null){
 			data_map = new LinkedHashMap<String, Object>();
 			data_map.put("orderFrom", orderFrom(temp.getExaminationid()));
 			data_map.put("goodsVo", goodsVo(temp.getExaminationid()));
 			data_map.put("customer", customer(temp.getExaminationid()));
-			data_map.put("line", line(temp.getExaminationid()));
+			//data_map.put("line", line(temp.getExaminationid()));
 			data_map.put("lineCustom", lineCustom(temp.getExaminationid()));
 		}
 		
+		Line line = line(temp.getExaminationid());
+		
+		data_map.put("line", line.getLinePic());
 		
 		if(data_map!=null){
-			map.put("data", data_map);
+			data_list.add(data_map);
+			map.put("data", data_list);
 			json_req = JsonUtil.Map2Json(map);
 		}
 		
@@ -91,9 +97,10 @@ public class AnalysisServiceImpl implements IAnalysisService{
 			
 			Order item = list.get(i);
 			map.put("recordId", item.getOrderId());
-			map.put("orderNo", item.getOrderNo());
+			map.put("orderNo", item.getOrderNo()+"");
 			map.put("orderType", item.getOrderType());
 			map.put("customerName", item.getCustomerName());
+			map.put("examInfoId", examId);
 			
 			json_map.add((LinkedHashMap<String, Object>) map);
 			
@@ -113,10 +120,10 @@ public class AnalysisServiceImpl implements IAnalysisService{
 			Map<String , Object> map = new LinkedHashMap<String,Object>();
 			
 			Material item = list.get(i);
-			map.put("goodsNo", item.getMaterialId());
+			map.put("goodsNo", item.getMaterialId()+"");
 			map.put("goodsName", item.getMaterialName());
 			map.put("goodsNum", item.getTotalNum());
-			map.put("receptorderNo", item.getMaterialId());
+			map.put("receptorderNo", item.getMaterialId()+"");
 			map.put("spec", item.getMaterialSpecification());
 			map.put("orderFromNo", item.getOrderFromNo());
 			
@@ -138,7 +145,7 @@ public class AnalysisServiceImpl implements IAnalysisService{
 			Map<String , Object> map = new LinkedHashMap<String,Object>();
 			
 			Client item = list.get(i);
-			map.put("customerNo", item.getClientId());
+			map.put("customerNo", item.getClientId()+"");
 			map.put("customerName", item.getClientName());
 			map.put("customerShortName", item.getClientShortName());
 			map.put("type", item.getClientType());
@@ -156,13 +163,13 @@ public class AnalysisServiceImpl implements IAnalysisService{
 	}
 
 	@Override
-	public LinkedHashMap<String, Object> line(Integer examId) {
+	public Line line(Integer examId) {
 		
 		Line line = lineDao.selectByPrimaryKey(examId);
 		LinkedHashMap<String, Object> map = new LinkedHashMap<String, Object>();
 		map.put("line", line.getLinePic());
 		
-		return map;
+		return line;
 	}
 
 	@Override
@@ -211,14 +218,15 @@ public class AnalysisServiceImpl implements IAnalysisService{
 	public String analysisResult(String json) {
 		
 		String json_res = null;
-		LinkedHashMap<String, Object> res_map = (LinkedHashMap<String, Object>) JsonUtil.Json2Map(json);
+		List<LinkedHashMap<String, Object>> list = JsonUtil.json2List(json);
+		LinkedHashMap<String, Object> res_map = (LinkedHashMap<String, Object>) list.get(0).get("$mobileAnalyseResult");
 		if(res_map!=null){
 			String userNo = (String) res_map.get("userNo");
 			String examId = (String) res_map.get("questioned");
 			
 			LinkedHashMap<String, Object> que_result = (LinkedHashMap<String, Object>) res_map.get("questionAnswer");
 			
-			Integer costSaving = (Integer) que_result.get("costSaving"); 
+			Integer costSaving = Integer.parseInt((String)que_result.get("costSaving")); 
 			String customerBasis = (String) que_result.get("customerBasis");
 			String customerSequenceUser = (String) que_result.get("customerSequenceUser");
 			String effectiveUser = (String) que_result.get("effectiveUser");
@@ -239,20 +247,24 @@ public class AnalysisServiceImpl implements IAnalysisService{
 			int res = analysisResultDao.insert(analysisResult);
 			if(res > 0){
 				LinkedHashMap<String, Object> req = new LinkedHashMap<String, Object>();
-				req.put("status", 200);
+				req.put("status", "200");
 				req.put("message", "题目分析提交成功");
-				
+				List<LinkedHashMap<String, Object>> data = new ArrayList<LinkedHashMap<String, Object>>();
+				LinkedHashMap<String, Object> data_map = new LinkedHashMap<String, Object>();
+				data_map.put("outTaskNo", "PLN-BO68S40I");
+				data.add(data_map);
+				req.put("data", data);
 				json_res = JsonUtil.Map2Json(req);
 			}else{
 				LinkedHashMap<String, Object> req = new LinkedHashMap<String, Object>();
-				req.put("status", 300);
+				req.put("status", "300");
 				req.put("message", "题目分析提交失败");
 				
 				json_res = JsonUtil.Map2Json(req);
 			}
 		}else{
 			LinkedHashMap<String, Object> req = new LinkedHashMap<String, Object>();
-			req.put("status", 300);
+			req.put("status", "300");
 			req.put("message", "提交数据失败");
 			
 			json_res = JsonUtil.Map2Json(req);

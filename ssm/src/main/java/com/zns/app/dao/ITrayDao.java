@@ -1,6 +1,7 @@
 package com.zns.app.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.zns.app.bean.Tray;
 
@@ -18,4 +19,6 @@ public interface ITrayDao {
     int updateByPrimaryKey(Tray record);
     
     int insertTrayList(List<Tray> tray_list);
+    
+    List<Tray> selectTrayByIdAndUserNo(Map<String,String> map);
 }

@@ -18,5 +18,8 @@ public interface IStorageService {
 	 * @param map
 	 * @return
 	 */
-	public List<Storage> getStorageList(Map<String , Object> map);
+	public List<Storage> getStorageList(Map<String , String> map);
+	
+	
+	public int updateStorageList(Map<String , Object> map);
 }

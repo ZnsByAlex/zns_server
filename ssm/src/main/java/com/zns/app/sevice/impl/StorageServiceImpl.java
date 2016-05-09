@@ -18,8 +18,16 @@ public class StorageServiceImpl implements IStorageService {
 	private IStorageDao storageDao;
 	
 	@Override
-	public List<Storage> getStorageList(Map<String, Object> map) {
+	public List<Storage> getStorageList(Map<String, String> map) {
 		return storageDao.selectByExamIdAndUser(map);
 	}
+
+	@Override
+	public int updateStorageList(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return storageDao.updateStorage(map);
+	}
+	
+	
 
 }
