@@ -20,7 +20,7 @@
 				//验证成功，跳转到点餐页面
 				console.log("验证成功");
 				alert("添加成功");
-				window.location.href = "user";
+				window.location.href = "../user/user";
 			}else{
 				//验证失败，弹出错误信息
 				console.log("添加失败");
@@ -35,7 +35,7 @@
 				//验证成功，跳转到点餐页面
 				console.log("验证成功");
 				alert("删除成功");
-				window.location.href = "user";
+				window.location.href = "../user/user";
 			}else{
 				//验证失败，弹出错误信息
 				console.log("删除失败");
@@ -101,7 +101,7 @@
 		function deleteSelectSuccess(data,status){
 			if(data == "1"){
 				console.log("删除选中项成功！");
-				window.location.href = "user";
+				window.location.href = "../user/user";
 			}
 			console.log(data);
 		}
@@ -117,7 +117,7 @@
 		function deleteSingleForm(data,status){
 			if(data == "1"){
 				console.log("删除选中项成功！");
-				window.location.href = "user";
+				window.location.href = "../user/user";
 			}
 			console.log(data);
 		}
@@ -182,7 +182,7 @@
           				//验证成功，跳转到点餐页面
           					console.log("验证成功");
           					alert("添加成功");
-          					window.location.href = "user";
+          					window.location.href = "../user/user";
           				}else{
           				//验证失败，弹出错误信息
           				console.log("添加失败");
@@ -206,7 +206,7 @@
           				//验证成功，跳转到点餐页面
           					console.log("验证成功");
           					alert("添加成功");
-          					window.location.href = "user";
+          					window.location.href = "../user/user";
           				}else{
           				//验证失败，弹出错误信息
           				console.log("添加失败");
@@ -374,12 +374,12 @@
 		<!-- Main Nav -->
 		<div id="navigation">
 			<ul>
-			    <li><a href="../user/testUser" class="active"><span>用户列表</span></a></li>
+			    <li><a href="../user/user" class="active"><span>用户列表</span></a></li>
 			    <li><a href="../examInfo/getExamInfoList"><span>题目列表</span></a></li>
 			    <li><a href="../client/getClientList"><span>客户列表</span></a></li>
 			    <li><a href="../zutuoGoods/getZutuoList"><span>货物列表</span></a></li>
-			    <li><a href="editFood.php"><span>物料列表</span></a></li>
-			    <li><a href="canteen.php"><span></span></a></li>
+			    <li><a href="../material/getMaterialList"><span>物料列表</span></a></li>
+			    <li><a href="../order/getOrderList"><span>订单列表</span></a></li>
 			</ul>
 		</div>
 		<!-- End Main Nav -->
@@ -424,7 +424,6 @@
 									<th>用户名</th>
 									<th>手机号码</th>
 									<th>学校</th>
-									<th>类型</th>
 									<th width="200" class="ac">操作</th>
 								</tr>
 
@@ -435,7 +434,6 @@
 									<td>${item.userName}</td>
 									<td>${item.tel}</td>
 									<td>${item.school}</td>
-									<td>${item.type}</td>
 									<td>
 									<button id="viewUserScore" class="viewUserScore button" type="button" value="${item.userNo}" style="margin: 0 10px;">查看分数</button>
 									<button id="deleteSingleUser" class="deleteSingleUser button" value="${item.id}" style="margin: 0 10px;">删除</button>
@@ -486,7 +484,11 @@
 								</p>
 								<p>
 									<label>类型<span id="typeMessage">(Required Field)</span></label>
-									<input type="text" class="field size1" name="type" id="type"/>
+									<select id="type" name="type">
+										<option value="1">管理员</option>
+										<option value="2">用户</option>
+									</select>
+
 								</p>
 							
 						</div>
@@ -521,6 +523,7 @@
 					<div class="box-content">
 					<div class="form">
 						<input type="hidden" class="field size1" name="examUserNo" id="examUserNo"/>
+						<input type="hidden" class="field size1" name="examId" id="examId"/>
 					 	<p>
 							<label>题目标题<span id="2Message"></span></label>
 							<input type="text" class="field size4" name="examinationtitle" id="examinationtitle"/>

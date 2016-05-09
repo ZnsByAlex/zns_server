@@ -35,7 +35,7 @@
 				//验证成功，跳转到点餐页面
 				console.log("验证成功");
 				alert("删除成功");
-				window.location.href = "user";
+				window.location.href = "。。/user/user";
 			}else{
 				//验证失败，弹出错误信息
 				console.log("删除失败");
@@ -249,9 +249,48 @@
   				e.checked=!e.checked;
  				}
 			}
+            
+			$('#toOrder').bind('click',function(){
+				window.location.href = "../order/getOrderList";
+			});
 			
-			$('.deleteSingleInfo').bind('click',function(){
-				console.log("a的值为:"+$('.deleteSingleInfo').val());
+			$('#toGoods').bind('click',function(){
+				window.location.href = "../zutuoGoods/getZutuoList";
+			});
+			
+			$('#toMaterial').bind('click',function(){
+				window.location.href = "../material/getMaterialList";
+			});
+			
+			$('.deleteMaterialInfo').bind('click',function(){
+				theData = $(this).val();
+				alert(theData);
+				$.ajax({
+					type: "POST",
+					url: "../material/delete",
+					cache: false,
+                    data: {materialId:theData},
+                    dataType: "json",
+					success: deleteSingleSuccess,
+					error: onError
+				});
+			});
+			
+			$('.deleteZutuoGoodsInfo').bind('click',function(){
+				theData = $(this).val();
+				console.log("data:"+theData);
+				$.ajax({
+					type: "POST",
+					url: "delete",
+					cache: false,
+                    data: {id:theData},
+                    dataType: "json",
+					success: deleteSingleSuccess,
+					error: onError
+				});
+			});
+			
+			$('.deleteOrderInfo').bind('click',function(){
 				theData = $(this).val();
 				console.log("data:"+theData);
 				$.ajax({
@@ -344,12 +383,12 @@
 		<!-- Main Nav -->
 		<div id="navigation">
 			<ul>
-			    <li><a href="../user/testUser" class="active"><span>用户列表</span></a></li>
+			    <li><a href="../user/user" class="active"><span>用户列表</span></a></li>
 			    <li><a href="../examInfo/getExamInfoList"><span>题目列表</span></a></li>
 			    <li><a href="../client/getClientList"><span>客户列表</span></a></li>
 			    <li><a href="../zutuoGoods/getZutuoList"><span>货物列表</span></a></li>
-			    <li><a href="editFood.php"><span>物料列表</span></a></li>
-			    <li><a href="canteen.php"><span></span></a></li>
+			    <li><a href="../material/getMaterialList"><span>物料列表</span></a></li>
+			    <li><a href="../order/getOrderList"><span>订单列表</span></a></li>
 			</ul>
 		</div>
 		<!-- End Main Nav -->
@@ -373,13 +412,9 @@
 					<!-- Box Head -->
 					<div class="box-head">
 						<h2 class="left">物料列表</h2>
-                        <!--
 						<div class="right">
-							<label>search articles</label>
-							<input type="text" class="field small-field" />
-							<input type="submit" class="button" value="search" />
+							<input type="submit" class="button" value="编辑" id="toMaterial"/>
 						</div>
-   						-->
 					</div>
 					<!-- End Box Head -->	
 
@@ -395,7 +430,6 @@
 									<th>物料规格</th>
 									<th>物料类型</th>
 									<th>订单编号</th>
-									<th width="110" class="ac">操作</th>
 								</tr>
 
 							<c:forEach items="${MaterialInfo}" var="item">
@@ -406,10 +440,7 @@
 									<td>${item.materialSpecification}</td>
 									<td>${item.materialType}</td>
 									<td>${item.orderFromNo}</td>
-									<td>
-
-									<button class="deleteSingleInfo button" value="${item.materialId}" style="margin: 0 10px;">删除</button>
-									<button class="editSingleInfo button" type="button" value="${item.materialId}">编辑</button></td>
+									
 								</tr>
 							</c:forEach>
 							</table>
@@ -425,13 +456,9 @@
 					<!-- Box Head -->
 					<div class="box-head">
 						<h2 class="left">货物列表</h2>
-                        <!--
 						<div class="right">
-							<label>search articles</label>
-							<input type="text" class="field small-field" />
-							<input type="submit" class="button" value="search" />
+							<input type="submit" class="button" value="编辑" id="toGoods"/>
 						</div>
-   						-->
 					</div>
 					<!-- End Box Head -->	
 
@@ -448,7 +475,7 @@
 									<th>订单编号</th>
 									<th>单位</th>
 									<th>规格</th>
-									<th width="110" class="ac">操作</th>
+
 								</tr>
 
 							<c:forEach items="${ZutuoGoodsInfo}" var="item">
@@ -460,10 +487,7 @@
 									<td>${item.orderfromno}</td>
 									<td>${item.goodsunit}</td>
 									<td>${item.spec}</td>
-									<td>
-
-									<button class="deleteSingleInfo button" value="${item.goodsno}" style="margin: 0 10px;">删除</button>
-									<button class="editSingleInfo button" type="button" value="${item.goodsno}">编辑</button></td>
+									
 								</tr>
 							</c:forEach>
 							</table>
@@ -479,13 +503,9 @@
 					<!-- Box Head -->
 					<div class="box-head">
 						<h2 class="left">订单列表</h2>
-                        <!--
 						<div class="right">
-							<label>search articles</label>
-							<input type="text" class="field small-field" />
-							<input type="submit" class="button" value="search" />
+							<input type="submit" class="button" value="编辑" id="toOrder"/>
 						</div>
-   						-->
 					</div>
 					<!-- End Box Head -->	
 
@@ -500,7 +520,7 @@
 									<th>订单有效性</th>
 									<th>订单类型</th>
 									<th>客户名称</th>
-									<th width="110" class="ac">操作</th>
+
 								</tr>
 
 							<c:forEach items="${OrderInfo}" var="item">
@@ -510,10 +530,7 @@
 									<td>${item.orderEffective}</td>
 									<td>${item.orderType}</td>
 									<td>${item.customerName}</td>
-									<td>
-
-									<button class="deleteSingleInfo button" value="${item.orderId}" style="margin: 0 10px;">删除</button>
-									<button class="editSingleInfo button" type="button" value="${item.orderId}">编辑</button></td>
+									
 								</tr>
 							</c:forEach>
 							</table>

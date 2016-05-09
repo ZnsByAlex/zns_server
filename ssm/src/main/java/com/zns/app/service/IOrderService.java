@@ -15,5 +15,7 @@ public interface IOrderService {
 	public Order selectOrderById(Integer orderId);
 	
 	public String insertOrder(Order order);
+	
+	public List<Order> getAllOrderList();
 
 }

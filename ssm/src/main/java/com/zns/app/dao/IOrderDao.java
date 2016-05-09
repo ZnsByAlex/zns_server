@@ -19,4 +19,6 @@ public interface IOrderDao {
     int updateByPrimaryKey(Order record);
     
     List<Order> getOrderByExamId(Integer examId);
+    
+    List<Order> getAllOrder();
 }

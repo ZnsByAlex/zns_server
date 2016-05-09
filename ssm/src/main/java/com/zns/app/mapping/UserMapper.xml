@@ -25,6 +25,12 @@
     from t_user_info
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="isExist" resultMap="BaseResultMap" parameterType="com.zns.app.bean.User" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_user_info
+    where user_no = #{userNo,jdbcType=VARCHAR} and user_pwd = #{userPwd,jdbcType=VARCHAR} and type = '1'
+  </select>
   <select id="getUserList" resultMap="BaseResultMap"  >
     select 
     <include refid="Base_Column_List" />

@@ -27,8 +27,8 @@ public class OrderController {
 	@Resource
 	private IOrderService orderService;
 	
-	@RequestMapping("/getOrderList")
-	public ModelAndView getOrderList(Integer examId, HttpServletRequest request,HttpServletResponse response){
+	@RequestMapping("/getOrderListById")
+	public ModelAndView getOrderListById(Integer examId, HttpServletRequest request,HttpServletResponse response){
 		List<Order> list = orderService.getOrderList(examId);
 		if(list == null){
 			System.out.println("null");
@@ -41,7 +41,26 @@ public class OrderController {
 //			System.out.print(tem.getUserName());
 //			System.out.println(tem.getUserNo());
 //		}
-		ModelAndView mav = new ModelAndView("login");
+		ModelAndView mav = new ModelAndView("order");
+		mav.addObject("Order", list);
+		return mav;
+	}
+	
+	@RequestMapping("/getOrderList")
+	public ModelAndView getOrderList(HttpServletRequest request,HttpServletResponse response){
+		List<Order> list = orderService.getAllOrderList();
+		if(list == null){
+			System.out.println("null");
+		}
+//		
+//		Iterator it = list.iterator();
+//		while(it.hasNext()){
+//			User tem = (User) it.next();
+//			System.out.println(tem.getId());
+//			System.out.print(tem.getUserName());
+//			System.out.println(tem.getUserNo());
+//		}
+		ModelAndView mav = new ModelAndView("order");
 		mav.addObject("Order", list);
 		return mav;
 	}

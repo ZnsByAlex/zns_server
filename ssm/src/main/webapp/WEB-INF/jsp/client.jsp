@@ -133,9 +133,7 @@
 			
 			$('#add').bind('click',function(){
                 if(checkA()&&checkB()&&checkC()){
-                	alert("====");
                 	var id = $('#clientId').val();
-                	alert(id);
                 	if(id == ""){
                 		insertInfo();
                 	}else{
@@ -145,7 +143,7 @@
 				return false;
 			});
             
-            function insertUser(){
+            function insertInfo(){
             	var myData = $('#myData').serialize();
 				$.ajax({
                   type: "POST",
@@ -257,7 +255,7 @@
 					type: "POST",
 					url: "delete",
 					cache: false,
-                    data: {id:theData},
+                    data: {clientId:theData},
                     dataType: "json",
 					success: deleteSingleSuccess,
 					error: onError
@@ -343,12 +341,12 @@
 		<!-- Main Nav -->
 		<div id="navigation">
 			<ul>
-			    <li><a href="../user/testUser" class="active"><span>用户列表</span></a></li>
+			    <li><a href="../user/user" class="active"><span>用户列表</span></a></li>
 			    <li><a href="../examInfo/getExamInfoList"><span>题目列表</span></a></li>
 			    <li><a href="../client/getClientList"><span>客户列表</span></a></li>
 			    <li><a href="../zutuoGoods/getZutuoList"><span>货物列表</span></a></li>
-			    <li><a href="editFood.php"><span>物料列表</span></a></li>
-			    <li><a href="canteen.php"><span></span></a></li>
+			    <li><a href="../material/getMaterialList"><span>物料列表</span></a></li>
+			    <li><a href="../order/getOrderList"><span>订单列表</span></a></li>
 			</ul>
 		</div>
 		<!-- End Main Nav -->

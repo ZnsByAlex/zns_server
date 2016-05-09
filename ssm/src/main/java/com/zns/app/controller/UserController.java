@@ -332,7 +332,7 @@ public class UserController {
 		return JsonUtil.Map2Json(json_Map);
 	}
 	
-	@RequestMapping("/testUser")
+	@RequestMapping("/user")
 	public ModelAndView getAllUser(HttpServletRequest request,HttpServletResponse response){
 		List<User> list = userService.getUserList();
 		List<TempExamUser> examUserList = examUserService.getExamUserList();
@@ -461,7 +461,7 @@ public class UserController {
 	public String selectExam(String userNo, HttpServletRequest request,HttpServletResponse response){
 		List<TempExamUser> result = examUserService.selectByUserNo(userNo);
 		Map<String, Object> resMap = new LinkedHashMap<String, Object>();
-		if(result != null){
+		if(result != null && result.size() != 0){
 			List<Map<String, Object>> tempList = new LinkedList<Map<String, Object>>();
 			Iterator<TempExamUser> it = result.iterator();
 			while(it.hasNext()){
@@ -483,7 +483,7 @@ public class UserController {
 	}
 	
 	@RequestMapping("selectExamInfo")
-	public ModelAndView selectExamByNoAndId(String userNo){
+	public ModelAndView selectExamByNoAndId(String userNo, String examid){
 		ModelAndView mav = new ModelAndView("userExam");
 		List<Storage> storageList = storageService.getStorageListByUser(userNo);
 		List<Tray> trayList = trayService.getTrayListByUserNo(userNo);
@@ -491,9 +491,30 @@ public class UserController {
 		mav.addObject("AnalysisResultInfo", analysisResultList);
 		mav.addObject("TrayInfo", trayList);
 		mav.addObject("StorageInfo", storageList);
+		mav.addObject("examid", examid);
+		mav.addObject("userNo", userNo);
 		
 		return mav;
 	}
+	
+	@RequestMapping("/adminLogin")
+	public String adminLogin(User record){
+		Map<String, Object> resMap = new LinkedHashMap<String, Object>();
+		if(userService.isUserExistAdmin(record)){
+			resMap.put("status", "200");
+		}else {
+			resMap.put("status", "300");
+		}
+		System.out.println(JsonUtil.Map2Json(resMap));
+		return JsonUtil.Map2Json(resMap);
+	}
+	
+	@RequestMapping("/webLogin")
+	public ModelAndView webLogin(){
+		ModelAndView mav = new ModelAndView("login");
+		return mav;
+	}
+	
 	@RequestMapping("ajaxTest")
 	public String ajaxTest(){
 		return "ajaxTest";

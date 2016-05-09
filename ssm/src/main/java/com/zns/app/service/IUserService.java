@@ -18,4 +18,6 @@ public interface IUserService {
 	public boolean updateUserById(User user);
 	
 	public User getUserById(Integer userId);
+
+	public boolean isUserExistAdmin(User record);
 }

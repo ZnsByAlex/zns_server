@@ -55,5 +55,11 @@ public class OrderServiceImpl implements IOrderService{
 		return "error";
 	}
 
+	@Override
+	public List<Order> getAllOrderList() {
+		// TODO Auto-generated method stub
+		return orderDao.getAllOrder();
+	}
+
 
 }

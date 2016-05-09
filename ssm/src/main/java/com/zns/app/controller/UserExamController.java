@@ -107,6 +107,7 @@ public class UserExamController {
 	public String updateScoreByNo(TempExamUser examUser){
 		boolean result = examUserService.updateScoreByUserAndExam(examUser);
 		Map<String, Object> resMap = new LinkedHashMap<String, Object>();
+		System.out.println("UserExamController updatascoreByNo result:" + result);
 		if(result) {
 			resMap.put("status", "200");
 		}else {
@@ -115,3 +116,4 @@ public class UserExamController {
 		return JsonUtil.Map2Json(resMap);
 	}
 }
+

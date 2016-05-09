@@ -77,7 +77,15 @@ public class UserServiceImpl implements IUserService{
 		User user = userDao.selectById(userId);
 		return user;
 	}
-	
+
+	@Override
+	public boolean isUserExistAdmin(User record) {
+		// TODO Auto-generated method stub
+		User result = userDao.isExist(record);
+		if(result != null) return true;
+		return false;
+	}
+
 	
 	
 

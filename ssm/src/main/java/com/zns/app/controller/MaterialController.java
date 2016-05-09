@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -28,7 +27,6 @@ public class MaterialController {
 	@Resource
 	private IMaterialService materialService;
 	
-	
 	@RequestMapping("/getMaterialList")
 	public ModelAndView getMaterialList(){
 		List<Material> list = materialService.getMaterialList();
@@ -43,7 +41,7 @@ public class MaterialController {
 			System.out.println(tem.getExamInfoId());
 			System.out.print(tem.getMaterialName());
 		}
-		ModelAndView mav = new ModelAndView("testUser");
+		ModelAndView mav = new ModelAndView("material");
 		mav.addObject("Material", list);
 		return mav;
 	}
@@ -116,3 +114,4 @@ public class MaterialController {
 		return "ajaxTest";
 	}
 }
+

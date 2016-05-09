@@ -14,12 +14,11 @@
 			data = eval("(" + data + ")");
             alert(data.status);
 			if(data.status == "200"){
-				//验证成功，跳转到点餐页面
-				console.log("验证成功");
-				alert("添加成功");
+				window.location.href = "../user/user";
 			}else{
 				//验证失败，弹出错误信息
-				console.log("添加失败");
+				console.log("账号密码错误！");
+				alert("账号密码错误！");
 			}
 		}
 
@@ -30,16 +29,16 @@
 			//console.log("data:"+data+"\nstatus:"+status);
 		}
 		
-
 			
 			$('#login').bind('click',function(){
-				var theUserName = $('#userName').val();
+				alert("+++++++++++++");
+				var theUserNo = $('#userNo').val();
 				var thePassword = $('#password').val();
-				console.log("data:"+theData);
+				alert(theUserNo);
 				$.ajax({
 					type: "POST",
-					url: "login",
-                    data: {userName:theUserName,password:thePassword},
+					url: "../user/adminLogin",
+                    data: {userNo:theUserNo,userPwd:thePassword},
                     dataType: "json",
 					success: loginSuccess,
 					error: onError
@@ -75,13 +74,14 @@
 					<!-- End Box Head -->	
 					<p>
                     	<div class="p10">用户名</div>
-                       	<input type="text" class="field size6 p10" name="userName" id="userName"/>
+                       	<input type="text" class="field size6 p10" name="userNo" id="userNo"/>
                    	</p>
 					<p>
 						<div class="p10">密码</div>
 						<input type="password" class="field size6 p10" name="password" id="password"/>
 					</p>
-					<button id="login" name="login" class="button2">登录</button>
+					
+					<button id="login" name="login" class="login" type="button">登录</button>
 
 					
 				</div>

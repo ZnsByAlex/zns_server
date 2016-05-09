@@ -24,5 +24,7 @@ public interface IUserDao {
     
     User selectById(Integer id);
     
+    User isExist(User record);
+    
     
 }

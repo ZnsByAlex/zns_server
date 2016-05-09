@@ -20,11 +20,16 @@
 				//验证成功，跳转到点餐页面
 				console.log("验证成功");
 				alert("添加成功");
-				window.location.href = "user";
+				window.location.href = "../user/user";
 			}else{
 				//验证失败，弹出错误信息
 				console.log("添加失败");
 			}
+		}
+		
+		function addScoreSuccess(data){
+            alert("添加成功");
+            window.location.href = "../user/user";
 		}
 		
 		function deleteSingleSuccess(data){
@@ -35,7 +40,7 @@
 				//验证成功，跳转到点餐页面
 				console.log("验证成功");
 				alert("删除成功");
-				window.location.href = "user";
+				window.location.href = "../user/user";
 			}else{
 				//验证失败，弹出错误信息
 				console.log("删除失败");
@@ -79,7 +84,7 @@
 		function deleteSelectSuccess(data,status){
 			if(data == "1"){
 				console.log("删除选中项成功！");
-				window.location.href = "user";
+				window.location.href = "../user/user";
 			}
 			console.log(data);
 		}
@@ -95,7 +100,7 @@
 		function deleteSingleForm(data,status){
 			if(data == "1"){
 				console.log("删除选中项成功！");
-				window.location.href = "user";
+				window.location.href = "../user/user";
 			}
 			console.log(data);
 		}
@@ -160,7 +165,7 @@
           				//验证成功，跳转到点餐页面
           					console.log("验证成功");
           					alert("添加成功");
-          					window.location.href = "user";
+          					window.location.href = "../user/user";
           				}else{
           				//验证失败，弹出错误信息
           				console.log("添加失败");
@@ -184,7 +189,7 @@
           				//验证成功，跳转到点餐页面
           					console.log("验证成功");
           					alert("添加成功");
-          					window.location.href = "user";
+          					window.location.href = "../user/user";
           				}else{
           				//验证失败，弹出错误信息
           				console.log("添加失败");
@@ -295,17 +300,18 @@
 			
 			$('#setScore').bind('click',function(){
 				var theScore = $('#score').val();
-				var theUserNo = $('#score').val();
-				var theExamId = $('#score').val();
+				var theUserNo = $('#examUserNo').val();
+				var theExamId = 1;
+				alert(theUserNo);
 				$.ajax({
                     type: "POST",
-                    url: "updataScoreByNo",
+                    url: "../userExam/updataScoreByNo",
                     cache: false,
-                    data: {userNo:theUserNo,examId:theExamId,score:theScore},
+                    data: {userNo:theUserNo,examinationid:theExamId,score:theScore},
                     dataType: "json",
                     success: addScoreSuccess,
                     error: onError
-                });
+                }); 
 			});
 			
 			$('#addAllToMenu').bind('click',function(){
@@ -359,12 +365,12 @@
 		<!-- Main Nav -->
 		<div id="navigation">
 			<ul>
-			    <li><a href="../user/testUser" class="active"><span>用户列表</span></a></li>
+			    <li><a href="../user/user" class="active"><span>用户列表</span></a></li>
 			    <li><a href="../examInfo/getExamInfoList"><span>题目列表</span></a></li>
 			    <li><a href="../client/getClientList"><span>客户列表</span></a></li>
 			    <li><a href="../zutuoGoods/getZutuoList"><span>货物列表</span></a></li>
-			    <li><a href="editFood.php"><span>物料列表</span></a></li>
-			    <li><a href="canteen.php"><span></span></a></li>
+			    <li><a href="../material/getMaterialList"><span>物料列表</span></a></li>
+			    <li><a href="../order/getOrderList"><span>订单列表</span></a></li>
 			</ul>
 		</div>
 		<!-- End Main Nav -->
@@ -382,6 +388,27 @@
 			
 			<!-- Content -->
 			<div id="content">
+				
+				<!-- Box -->
+				<div class="box">
+					<!-- Box Head -->
+					<div class="box-head">
+						<h2 class="left">当前题目</h2>
+                        <!--
+						<div class="right">
+							<label>search articles</label>
+							<input type="text" class="field small-field" />
+							<input type="submit" class="button" value="search" />
+						</div>
+   						-->
+					</div>
+					<!-- End Box Head -->	
+
+					
+				</div>
+				<!-- End Box -->			
+			
+			
 				
 				<!-- Box -->
 				<div class="box">
@@ -411,7 +438,6 @@
 									<th>订单有效性</th>
 									<th>物料ABC分类</th>
 									<th>路线</th>
-									<th width="110" class="ac">操作</th>
 								</tr>
 
 							<c:forEach items="${AnalysisResultInfo}" var="item">
@@ -423,10 +449,7 @@
 									<td>${item.effectiveUser}</td>
 									<td>${item.examinationUserAbc}</td>
 									<td>${item.optimallineUser}</td>
-									<td>
-
-									<button class="deleteSingleInfo button" value="${item.questioneid}" style="margin: 0 10px;">删除</button>
-									<button class="editSingleInfo button" type="button" value="${item.questioneid}">编辑</button></td>
+									
 								</tr>
 							</c:forEach>
 							</table>
@@ -465,7 +488,6 @@
 									<th>仓位编号</th>
 									<th>入库单编号</th>
 									<th>订单编号</th>
-									<th width="110" class="ac">操作</th>
 								</tr>
 
 							<c:forEach items="${TrayInfo}" var="item">
@@ -477,10 +499,7 @@
 									<td>${item.slcationno}</td>
 									<td>${item.receptorderno}</td>
 									<td>${item.orderFromNo}</td>
-									<td>
-
-									<button class="deleteSingleInfo button" value="${item.trayno}" style="margin: 0 10px;">删除</button>
-									<button class="editSingleInfo button" type="button" value="${item.trayno}">编辑</button></td>
+									
 								</tr>
 							</c:forEach>
 							</table>
@@ -517,7 +536,6 @@
 									<th>货物名称</th>
 									<th>货物数量</th>
 									<th>货物单位</th>
-									<th width="110" class="ac">操作</th>
 								</tr>
 
 							<c:forEach items="${StorageInfo}" var="item">
@@ -527,10 +545,7 @@
 									<td>${item.goodsname}</td>
 									<td>${item.goodsnum}</td>
 									<td>${item.goodsunit}</td>
-									<td>
-
-									<button class="deleteSingleInfo button" value="${item.storageno}" style="margin: 0 10px;">删除</button>
-									<button class="editSingleInfo button" type="button" value="${item.storageno}">编辑</button></td>
+									
 								</tr>
 							</c:forEach>
 							</table>
@@ -541,56 +556,6 @@
 				</div>
 				<!-- End Box -->
 												
-				<!-- Box -->
-				<div class="box">
-					<!-- Box Head -->
-					<div class="box-head">
-						<h2>用户信息</h2>
-					</div>
-					<!-- End Box Head -->
-					
-					<form action="#" method="post" id="myData" class="myData" name="myData">
-						<!-- Form -->
-						<div class="form">
-								<input type="hidden" class="field size1" name="clientId" id="clientId"/>
-                                <p>
-                                    <label>客户名称<span id="aMessage">(Required Field)</span></label>
-                                    <input type="text" class="field size1" name="clientName" id="clientName"/>
-                                </p>
-								<p>
-									<label>客户简称<span id="bMessage">(Required Field)</span></label>
-									<input type="text" class="field size1" name="clientShortName" id="clientShortName"/>
-								</p>
-                            	<p>
-									<label>客户类型<span id="cMessage">(Required Field)</span></label>
-									<input type="text" class="field size1" name="clientType" id="clientType"/>
-								</p>
-                            	<p>
-									<label>地址<span id="dMessage">(Required Field)</span></label>
-									<input type="text" class="field size1" name="clientAddress" id="clientAddress"/>
-								</p>
-                                <p>
-									<label>联系方式<span id="eMessage">(Required Field)</span></label>
-									<input type="text" class="field size1" name="clientTel" id="clientTel"/>
-								</p>
-								<p>
-									<label>订单编号<span id="fMessage">(Required Field)</span></label>
-									<input type="text" class="field size1" name="orderFromNo" id="orderFromNo"/>
-								</p>
-							
-						</div>
-						<!-- End Form -->
-						
-						<!-- Form Buttons -->
-						<div class="buttons">
-             	 			<input type="hidden" value="insert" name="Operation">
-                            <input type="button" class="button" value="重置" id="preview"/>
-							<button id="add" class="button" data-inline="true">提交</button>
-						</div>
-						<!-- End Form Buttons -->
-					</form>
-				</div>
-				<!-- End Box -->
 
 			</div>
 			<!-- End Content -->
@@ -608,7 +573,7 @@
 					<!-- End Box Head-->
 					
 					<div class="box-content">
-                        <input type="hidden" class="field size1" name="examUserNo" id="examUserNo"/>
+                        <input type="hidden" class="field size1" name="examUserNo" id="examUserNo" value="${userNo}"/>
 					 	<p>
 							<label>题目标题<span id="2Message"></span></label>
 							<input type="text" class="field size4" name="examinationtitle" id="examinationtitle"/>
@@ -620,7 +585,7 @@
 						
 						<!-- Sort -->
 						<div class="sort">
-							<button id="setScore" name="userNo" value="" type="button" class="button">确定</button>
+							<button id="setScore" name="userNo" value="" class="setScore">确定</button>
 						</div>
 						<!-- End Sort -->
 						

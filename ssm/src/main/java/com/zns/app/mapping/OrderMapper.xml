@@ -18,6 +18,11 @@
     from t_order_effec_info
     where exam_info_id = #{examId,jdbcType=INTEGER}
   </select>
+  <select id="getAllOrder" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_order_effec_info
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
