@@ -245,6 +245,33 @@ public class AnalysisServiceImpl implements IAnalysisService{
 			analysisResult.setExaminationUserAbc(examinationUserAbc);
 			analysisResult.setOptimallineUser(optimalLineUser);
 			
+			//插入有效性信息到数据库
+			String[] effictList = effectiveUser.split(",");
+			for(String effictData:effictList){
+				orderDao.updateEffect(Integer.parseInt(effictData));
+			}
+			//插入物料类型
+			String[] typeList  = examinationUserAbc.split(",");
+			for(int i = 0; i < typeList.length; i++){
+				String[] MaterialType = typeList[i].split("*");
+				for(int j = 0; i < typeList.length; i++){
+					Map<String, Object> record = new HashMap<String, Object>();
+					switch(i){
+					case 0:
+						record.put("materialType", "A");
+						break;
+					case 1:
+						record.put("materialType", "B");
+						break;
+					case 2:
+						record.put("materialType", "C");
+						break;
+					}
+					record.put("materialId", Integer.parseInt(MaterialType[j]));
+					materialDao.updateType(record);
+				}
+			}
+			
 			int res = analysisResultDao.insert(analysisResult);
 			if(res > 0){
 				LinkedHashMap<String, Object> req = new LinkedHashMap<String, Object>();

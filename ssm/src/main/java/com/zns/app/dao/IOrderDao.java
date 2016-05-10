@@ -21,4 +21,6 @@ public interface IOrderDao {
     List<Order> getOrderByExamId(Integer examId);
     
     List<Order> getAllOrder();
+    
+    int updateEffect(Integer orderNo);
 }
