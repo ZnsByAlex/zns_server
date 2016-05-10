@@ -172,7 +172,7 @@ public class UserController {
 			map.put("message", "获取组托物料成功");
 
 			
-			for(int i=0;i<list.size() ;i++){
+			for(int i=0;i<zutuo_list.size() ;i++){
 				ZutuoGoods item = zutuo_list.get(i);
 				LinkedHashMap<String, Object> mtemp = new LinkedHashMap<String, Object>();
 				mtemp.put("goodsNo", item.getGoodsno());
