@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.json.Json;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -66,6 +67,62 @@ public class UserController {
 	private IZutuoGoodsService zutuoGoodsService;
 	
 	
+	@RequestMapping(value="/register" ,method= RequestMethod.POST)
+	@ResponseBody
+	public String register(@RequestParam("reqParameter") String jsonString , HttpServletResponse resp){
+		List<LinkedHashMap<String, Object>> userInfoList = JsonUtil.json2List(jsonString);
+		userInfoList = JsonUtil.json2List(jsonString);
+		Map<String , Object> userRegMap = new HashMap<String, Object>();
+		LinkedHashMap<String, Object> user_reg_map = (LinkedHashMap<String, Object>) userInfoList.get(0).get("$mobileRegister");
+		String userNo = (String) user_reg_map.get("userNo");
+		String password = (String) user_reg_map.get("password");
+		String userName = (String) user_reg_map.get("userName");
+		String telephone = (String) user_reg_map.get("telephone");
+		String schoolName = (String) user_reg_map.get("schoolName");
+		
+//		userRegMap.put("userNo", userNo);
+//		userRegMap.put("password", password);
+//		userRegMap.put("userName", userName);
+//		userRegMap.put("telephone", telephone);
+//		userRegMap.put("schoolName", schoolName);
+		User user = new User();
+		user.setUserNo(userNo);
+		user.setUserPwd(password);
+		user.setUserName(userName);
+		user.setTel(telephone);
+		user.setSchool(schoolName);
+		
+		String result = userService.registerUser(user);
+		if(result.equals("success")){
+			userRegMap.put("status", "200");
+		}else{
+			userRegMap.put("status", "300");
+		}
+		
+		return JsonUtil.Map2Json(userRegMap);
+		
+		
+	}
+	
+	@RequestMapping(value="/check" ,method= RequestMethod.POST)
+	@ResponseBody
+	public String check(@RequestParam("reqParameter") String jsonString , HttpServletResponse resp){
+		List<LinkedHashMap<String, Object>> userInfoList = JsonUtil.json2List(jsonString);
+		userInfoList = JsonUtil.json2List(jsonString);
+		Map<String , Object> userCheckMap = new HashMap<String, Object>();
+		LinkedHashMap<String, Object> user_check_map = (LinkedHashMap<String, Object>) userInfoList.get(0).get("$mobilecheckUserNo");
+		String userNo = (String) user_check_map.get("userNo");
+		
+		boolean isReg = userService.isUserExist(userNo);
+		
+		if(!isReg)
+			userCheckMap.put("status", "200");
+		else 
+			userCheckMap.put("status", "300");
+		
+		return JsonUtil.Map2Json(userCheckMap);
+	}
+	
 	
 	@RequestMapping(value= "/login" ,method= RequestMethod.POST)  
 	@ResponseBody
@@ -83,7 +140,7 @@ public class UserController {
 //		String password = "0000";
 		
 		
-		boolean isExist = userService.isUserExist(userNo, password);
+		boolean isExist = userService.isUserExist(userNo);
 		
 		Map<String , Object> LoginInfoMap = new HashMap<String, Object>();
 		String userLoginJson="";

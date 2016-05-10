@@ -9,7 +9,7 @@ public interface IUserService {
 	
 	public boolean deleteUserById(Integer userid);
 	
-	public boolean isUserExist(String userNo , String password);
+	public boolean isUserExist(String userNo );
 	
 	public String registerUser(User user);
 	

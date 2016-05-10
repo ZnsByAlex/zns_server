@@ -26,10 +26,9 @@ public class UserServiceImpl implements IUserService{
 	}
 
 	@Override
-	public boolean isUserExist(String userNo , String password) {
+	public boolean isUserExist(String userNo) {
 		Map<String , String> map = new HashMap<String, String>();
 		map.put("userNo", userNo);
-		map.put("password", password);
 		User user = userDao.selectByPrimaryKey(map);
 		if(user != null) return true;
 		return false;

@@ -17,7 +17,7 @@
     select 
     <include refid="Base_Column_List" />
     from t_user_info
-    where user_no = #{userNo,jdbcType=VARCHAR} and user_pwd = #{password,jdbcType=VARCHAR}
+    where user_no = #{userNo,jdbcType=VARCHAR} 
   </select>
   <select id="selectById" resultMap="BaseResultMap" parameterType="java.util.Map" >
     select 
