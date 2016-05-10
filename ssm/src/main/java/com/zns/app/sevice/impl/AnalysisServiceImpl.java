@@ -253,8 +253,8 @@ public class AnalysisServiceImpl implements IAnalysisService{
 			//插入物料类型
 			String[] typeList  = examinationUserAbc.split(",");
 			for(int i = 0; i < typeList.length; i++){
-				String[] MaterialType = typeList[i].split("*");
-				for(int j = 0; i < typeList.length; i++){
+				String[] materialType = typeList[i].split("\\*");
+				for(int j = 0; j < materialType.length; j++){
 					Map<String, Object> record = new HashMap<String, Object>();
 					switch(i){
 					case 0:
@@ -267,7 +267,7 @@ public class AnalysisServiceImpl implements IAnalysisService{
 						record.put("materialType", "C");
 						break;
 					}
-					record.put("materialId", Integer.parseInt(MaterialType[j]));
+					record.put("materialId", Integer.parseInt(materialType[j]));
 					materialDao.updateType(record);
 				}
 			}

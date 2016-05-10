@@ -119,7 +119,7 @@
   <update id="updateEffect" parameterType="java.lang.Integer" >
     update t_order_effec_info
     set 
-      order_effective = '有效',
+      order_effective = '有效'
     where order_no = #{orderNo,jdbcType=INTEGER}
   </update>
 </mapper>
