@@ -305,10 +305,12 @@
 			});
             
             $('#preview').bind('click',function(){
-            	$('#clientId').val("");
-				$('#clientName').val("");
-                $('#clientShortName').val("");
-                $('#clientType').val("");
+            	$('#materialId').val("");
+				$('#materialName').val("");
+                $('#materialSpecification').val("");
+                $('#totalNum').val("");
+                $('#materialType').val("");
+                $('#orderFromNo').val("");
 			});
             //全选or反选
             $('#selectall').bind('click',function(){

@@ -17,7 +17,6 @@
 			data = eval("(" + data + ")");
             alert(data.status);
 			if(data.status == "200"){
-				//验证成功，跳转到点餐页面
 				console.log("验证成功");
 				alert("添加成功");
 				window.location.href = "user";
@@ -32,7 +31,6 @@
 			//var obj = JSON.parse(data);
 			data = eval("(" + data + ")");
 			if(data.status == "200"){
-				//验证成功，跳转到点餐页面
 				console.log("验证成功");
 				alert("删除成功");
 				window.location.href = "user";
@@ -116,21 +114,6 @@
 		}
 		
 		$(document).ready(function(){
-			/*添加单个菜品*/
-			$('#deleteAllSelete').bind('click',function(){
-				$('#operation').val("deleteFood");
-				var allfoodform = $('#allfoodform').serialize();
-				console.log(allfoodform);
-				$.ajax({
-                  type: "POST",
-                  url: "deleteall",
-                  cache: false,
-                  data: allfoodform,
-                  dataType: "json",
-                  success: deleteSelectSuccess,
-                  error: onError
-                });
-			});
 			
 			$('#add').bind('click',function(){
                 if(checkA()&&checkB()&&checkC()){
@@ -155,7 +138,6 @@
                   success: function(data){
                 	  data = eval("(" + data + ")");
           				if(data.status == "200"){
-          				//验证成功，跳转到点餐页面
           					console.log("验证成功");
           					alert("添加成功");
           					window.location.href = "user";
@@ -179,7 +161,6 @@
                   success: function(data){
                 	  data = eval("(" + data + ")");
           				if(data.status == "200"){
-          				//验证成功，跳转到点餐页面
           					console.log("验证成功");
           					alert("添加成功");
           					window.location.href = "user";
@@ -308,10 +289,13 @@
 			});
             
             $('#preview').bind('click',function(){
-            	$('#clientId').val("");
-				$('#clientName').val("");
-                $('#clientShortName').val("");
-                $('#clientType').val("");
+            	$('#goodsno').val("");
+            	$('#goodsname').val("");
+				$('#goodsnum').val("");
+                $('#receptorderno').val("");
+                $('#orderfromno').val("");
+                $('#goodsunit').val("");
+                $('#spec').val("");
 			});
             //全选or反选
             $('#selectall').bind('click',function(){

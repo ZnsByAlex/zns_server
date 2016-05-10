@@ -29,24 +29,21 @@
 			//console.log("data:"+data+"\nstatus:"+status);
 		}
 		
-			
+		$(document).ready(function(){	
 			$('#toLogin').bind('click',function(){
-				alert("+++++++++++++");
-			});
-			
-			$('.viewExam').bind('click',function(){
-				alert("+++++++++++++");
-				theData = $(this).val();
-				console.log("data:"+theData);
+				var theUserNo = $('#userNo').val();
+				var thePwd = $('#password').val();
 				$.ajax({
-					type: "POST",
-					url: "selectid",
-                    data: {userNo:theData},
+                    type: "POST",
+                    url: "adminLogin",
+                    cache: false,
+                    data: {userNo:theUserNo,userPwd:thePwd},
                     dataType: "json",
-					success: getExamSuccess,
-					error: onError
-				});
-			});	
+                    success: loginSuccess,
+                    error: onError
+                });
+			});
+		});	
 
 	</script>
 </head>
@@ -84,10 +81,11 @@
 						<div class="p10">密码</div>
 						<input type="password" class="field size6 p10" name="password" id="password"/>
 					</p>
+					<div>&nbsp;</div>
 					<p>
-					<button id="toLogin" name="toLogin" class="toLogin">登录</button>
+					<button id="toLogin" name="toLogin" class="toLogin button2">登录</button>
 					</p>
-					
+					<div>&nbsp;</div>
 				</div>
 				<!-- End Box -->
 						

@@ -17,7 +17,6 @@
 			data = eval("(" + data + ")");
             alert(data.status);
 			if(data.status == "200"){
-				//验证成功，跳转到点餐页面
 				console.log("验证成功");
 				alert("添加成功");
 				window.location.href = "../user/user";
@@ -37,7 +36,6 @@
 			//var obj = JSON.parse(data);
 			data = eval("(" + data + ")");
 			if(data.status == "200"){
-				//验证成功，跳转到点餐页面
 				console.log("验证成功");
 				alert("删除成功");
 				window.location.href = "../user/user";
@@ -121,21 +119,6 @@
 		}
 		
 		$(document).ready(function(){
-			/*添加单个菜品*/
-			$('#deleteAllSelete').bind('click',function(){
-				$('#operation').val("deleteFood");
-				var allfoodform = $('#allfoodform').serialize();
-				console.log(allfoodform);
-				$.ajax({
-                  type: "POST",
-                  url: "deleteall",
-                  cache: false,
-                  data: allfoodform,
-                  dataType: "json",
-                  success: deleteSelectSuccess,
-                  error: onError
-                });
-			});
 			
 			$('#add').bind('click',function(){
                 if(checkA()&&checkB()&&checkC()){
@@ -162,7 +145,6 @@
                   success: function(data){
                 	  data = eval("(" + data + ")");
           				if(data.status == "200"){
-          				//验证成功，跳转到点餐页面
           					console.log("验证成功");
           					alert("添加成功");
           					window.location.href = "../user/user";
@@ -186,7 +168,6 @@
                   success: function(data){
                 	  data = eval("(" + data + ")");
           				if(data.status == "200"){
-          				//验证成功，跳转到点餐页面
           					console.log("验证成功");
           					alert("添加成功");
           					window.location.href = "../user/user";
@@ -387,26 +368,7 @@
 			<div class="cl">&nbsp;</div>
 			
 			<!-- Content -->
-			<div id="content">
-				
-				<!-- Box -->
-				<div class="box">
-					<!-- Box Head -->
-					<div class="box-head">
-						<h2 class="left">当前题目</h2>
-                        <!--
-						<div class="right">
-							<label>search articles</label>
-							<input type="text" class="field small-field" />
-							<input type="submit" class="button" value="search" />
-						</div>
-   						-->
-					</div>
-					<!-- End Box Head -->	
-
-					
-				</div>
-				<!-- End Box -->			
+			<div id="content">		
 			
 			
 				
@@ -509,19 +471,16 @@
 					
 				</div>
 				<!-- End Box -->
+
 				
 				<!-- Box -->
 				<div class="box">
 					<!-- Box Head -->
 					<div class="box-head">
-						<h2 class="left">出库分析</h2>
-                        <!--
+						<h2 class="left">订单有效性</h2>
 						<div class="right">
-							<label>search articles</label>
-							<input type="text" class="field small-field" />
-							<input type="submit" class="button" value="search" />
+							<input type="submit" class="button" value="编辑" id="toOrder"/>
 						</div>
-   						-->
 					</div>
 					<!-- End Box Head -->	
 
@@ -532,19 +491,23 @@
 							<table width="100%" border="0" cellspacing="0" cellpadding="0">
 								<tr>
 									<th width="13"><input type="checkbox" class="checkbox" id="selectall"/></th>
-									<th>入库编号</th>
-									<th>货物名称</th>
-									<th>货物数量</th>
-									<th>货物单位</th>
+									<th>订单编号</th>
+									<th>订单有效性</th>
+									<th>订单类型</th>
+									<th>客户名称</th>
+
 								</tr>
 
-							<c:forEach items="${StorageInfo}" var="item">
+							<c:forEach items="${OrderInfo}" var="item">
 								<tr class="odd">
-									<td><input type="checkbox" class="checkbox" name="foodCheckbox[]" value="${item.storageno}"/></td>
-									<td>${item.storageno}</td>
-									<td>${item.goodsname}</td>
-									<td>${item.goodsnum}</td>
-									<td>${item.goodsunit}</td>
+									<td><input type="checkbox" class="checkbox" name="foodCheckbox[]" value="${item.orderId}"/></td>
+									<td>${item.orderNo}</td>
+									<td>
+									<c:if test = "${item.orderEffective == null}">无效</c:if>
+									<c:if test = "${item.orderEffective != null}">有效</c:if>
+									</td>
+									<td>${item.orderType}</td>
+									<td>${item.customerName}</td>
 									
 								</tr>
 							</c:forEach>
@@ -574,10 +537,6 @@
 					
 					<div class="box-content">
                         <input type="hidden" class="field size1" name="examUserNo" id="examUserNo" value="${userNo}"/>
-					 	<p>
-							<label>题目标题<span id="2Message"></span></label>
-							<input type="text" class="field size4" name="examinationtitle" id="examinationtitle"/>
-					 	</p>
 					 	<p>
 							<label>分数<span id="3Message"></span></label>
 							<input type="text" class="field size4" name="score" id="score"/>
