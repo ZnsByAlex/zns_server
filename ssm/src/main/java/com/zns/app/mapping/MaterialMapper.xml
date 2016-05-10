@@ -126,4 +126,10 @@
       order_from_no = #{orderFromNo,jdbcType=VARCHAR}
     where material_id = #{materialId,jdbcType=INTEGER}
   </update>
+  <update id="updateType" parameterType="java.util.Map" >
+    update t_material_info
+    set 
+      material_type = #{materialType,jdbcType=VARCHAR}
+    where material_id = #{materialId,jdbcType=INTEGER}
+  </update>
 </mapper>
