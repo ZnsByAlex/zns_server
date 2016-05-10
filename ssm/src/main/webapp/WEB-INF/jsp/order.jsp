@@ -287,10 +287,11 @@
 			});
 			
             $('#preview').bind('click',function(){
-            	$('#clientId').val("");
-				$('#clientName').val("");
-                $('#clientShortName').val("");
-                $('#clientType').val("");
+            	$('#orderId').val("");
+				$('#orderNo').val("");
+                $('#orderEffective').val("");
+                $('#orderType').val("");
+                $('#customerName').val("");
 			});
             //全选or反选
             $('#selectall').bind('click',function(){

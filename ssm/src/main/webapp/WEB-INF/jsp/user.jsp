@@ -17,7 +17,6 @@
 			data = eval("(" + data + ")");
             alert(data.status);
 			if(data.status == "200"){
-				//验证成功，跳转到点餐页面
 				console.log("验证成功");
 				alert("添加成功");
 				window.location.href = "../user/user";
@@ -32,7 +31,6 @@
 			//var obj = JSON.parse(data);
 			data = eval("(" + data + ")");
 			if(data.status == "200"){
-				//验证成功，跳转到点餐页面
 				console.log("验证成功");
 				alert("删除成功");
 				window.location.href = "../user/user";
@@ -51,9 +49,6 @@
 			
 			var userInfo = data.userInfo;
 			if(data.status == "200"){
-				//alert(data.userInfo.userNo);
-				//document.getElementById("userNo").value="test";
-				//$('#userNo').val("");
 				$('#id').val(data.userInfo.id);
 				$('#userNo').val(data.userInfo.userNo);
 				$('#userName').val(data.userInfo.userName);
@@ -77,13 +72,14 @@
 			if(data.status == "200"){
 				$('#examinationtitle').val(data.examInfo[0].examinationtitle);
 				var score = data.examInfo[0].score;
-				alert(score);
 				if(score == null){
 					$('#score').val("未打分");
 				}else
 					$('#score').val(data.examInfo[0].score);
 			}else if(data.status == "201"){
+				$('#score').val("");
 				$('#examinationtitle').val("未做题");
+				$("#setScore").attr('disabled',true);
 			}else{
 				//验证失败，弹出错误信息
 				console.log("获取失败");
@@ -138,21 +134,6 @@
 		}
 		
 		$(document).ready(function(){
-			/*添加单个菜品*/
-			$('#deleteAllSelete').bind('click',function(){
-				$('#operation').val("deleteFood");
-				var allfoodform = $('#allfoodform').serialize();
-				console.log(allfoodform);
-				$.ajax({
-                  type: "POST",
-                  url: "deleteall",
-                  cache: false,
-                  data: allfoodform,
-                  dataType: "json",
-                  success: deleteSelectSuccess,
-                  error: onError
-                });
-			});
 			
 			$('#add-user').bind('click',function(){
                 if(checkName()&&checkPwd()&&checkUserNo){
@@ -179,7 +160,6 @@
                   success: function(data){
                 	  data = eval("(" + data + ")");
           				if(data.status == "200"){
-          				//验证成功，跳转到点餐页面
           					console.log("验证成功");
           					alert("添加成功");
           					window.location.href = "../user/user";
@@ -203,7 +183,6 @@
                   success: function(data){
                 	  data = eval("(" + data + ")");
           				if(data.status == "200"){
-          				//验证成功，跳转到点餐页面
           					console.log("验证成功");
           					alert("添加成功");
           					window.location.href = "../user/user";
@@ -341,9 +320,13 @@
 			});
             
             $('#preview').bind('click',function(){
+            	$('#id').val("");
 				$('#userNo').val("");
                 $('#userName').val("");
                 $('#userPwd').val("");
+                $('#tel').val("");
+                $('#school').val("");
+                $('#type').val("");
 			});
             //全选or反选
             $('#selectall').bind('click',function(){
@@ -526,11 +509,11 @@
 						<input type="hidden" class="field size1" name="examId" id="examId"/>
 					 	<p>
 							<label>题目标题<span id="2Message"></span></label>
-							<input type="text" class="field size4" name="examinationtitle" id="examinationtitle"/>
+							<input type="text" class="field size4" name="examinationtitle" id="examinationtitle" disabled="disabled"/>
 					 	</p>
 					 	<p>
 							<label>分数<span id="3Message"></span></label>
-							<input type="text" class="field size4" name="score" id="score"/>
+							<input type="text" class="field size4" name="score" id="score" disabled="disabled"/>
 					 	</p>
 					 </div>	
 					<div class="buttons">

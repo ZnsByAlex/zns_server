@@ -348,12 +348,6 @@
                 });
 			});
             
-            $('#preview').bind('click',function(){
-            	$('#clientId').val("");
-				$('#clientName').val("");
-                $('#clientShortName').val("");
-                $('#clientType').val("");
-			});
             //全选or反选
             $('#selectall').bind('click',function(){
                 SelectAll();
@@ -496,51 +490,7 @@
 					<!-- Table -->
 					
 				</div>
-				<!-- End Box -->
-				
-				<!-- Box -->
-				<div class="box">
-					<!-- Box Head -->
-					<div class="box-head">
-						<h2 class="left">订单列表</h2>
-						<div class="right">
-							<input type="submit" class="button" value="编辑" id="toOrder"/>
-						</div>
-					</div>
-					<!-- End Box Head -->	
-
-					<!-- Table -->
-					<div class="table">
-						<form id="allfoodform" action="#" method="POST" >
-							<input id="operation" type="hidden" name="Operation" value="deleteFood">
-							<table width="100%" border="0" cellspacing="0" cellpadding="0">
-								<tr>
-									<th width="13"><input type="checkbox" class="checkbox" id="selectall"/></th>
-									<th>订单编号</th>
-									<th>订单有效性</th>
-									<th>订单类型</th>
-									<th>客户名称</th>
-
-								</tr>
-
-							<c:forEach items="${OrderInfo}" var="item">
-								<tr class="odd">
-									<td><input type="checkbox" class="checkbox" name="foodCheckbox[]" value="${item.orderId}"/></td>
-									<td>${item.orderNo}</td>
-									<td>${item.orderEffective}</td>
-									<td>${item.orderType}</td>
-									<td>${item.customerName}</td>
-									
-								</tr>
-							</c:forEach>
-							</table>
-						</form>
-					</div>
-					<!-- Table -->
-					
-				</div>
-				<!-- End Box -->
-												
+				<!-- End Box -->				
 				
 
 			</div>

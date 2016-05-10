@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.druid.support.json.JSONUtils;
 import com.zns.app.bean.AnalysisResult;
 import com.zns.app.bean.ExamInfo;
+import com.zns.app.bean.Order;
 import com.zns.app.bean.Storage;
 
 import com.zns.app.bean.Tray;
@@ -32,6 +33,7 @@ import com.zns.app.bean.User;
 import com.zns.app.bean.ZutuoGoods;
 import com.zns.app.service.IAnalysisService;
 import com.zns.app.service.IExamInfoService;
+import com.zns.app.service.IOrderService;
 import com.zns.app.service.IStorageService;
 import com.zns.app.service.ITempExamUserService;
 import com.zns.app.service.ITrayService;
@@ -64,6 +66,9 @@ public class UserController {
 	
 	@Resource
 	private IZutuoGoodsService zutuoGoodsService;
+	
+	@Resource
+	private IOrderService orderService;
 	
 	
 	
@@ -488,9 +493,12 @@ public class UserController {
 		List<Storage> storageList = storageService.getStorageListByUser(userNo);
 		List<Tray> trayList = trayService.getTrayListByUserNo(userNo);
 		List<AnalysisResult> analysisResultList = analysisService.getAnalysisResultByUserNo(userNo);
+		List<Order> orderList = orderService.getOrderList(1);
 		mav.addObject("AnalysisResultInfo", analysisResultList);
 		mav.addObject("TrayInfo", trayList);
-		mav.addObject("StorageInfo", storageList);
+		
+		//mav.addObject("StorageInfo", storageList);
+		mav.addObject("OrderInfo", orderList);
 		mav.addObject("examid", examid);
 		mav.addObject("userNo", userNo);
 		
@@ -498,6 +506,7 @@ public class UserController {
 	}
 	
 	@RequestMapping("/adminLogin")
+	@ResponseBody
 	public String adminLogin(User record){
 		Map<String, Object> resMap = new LinkedHashMap<String, Object>();
 		if(userService.isUserExistAdmin(record)){
