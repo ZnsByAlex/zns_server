@@ -30,20 +30,23 @@
 		}
 		
 			
-			$('#login').bind('click',function(){
+			$('#toLogin').bind('click',function(){
 				alert("+++++++++++++");
-				var theUserNo = $('#userNo').val();
-				var thePassword = $('#password').val();
-				alert(theUserNo);
+			});
+			
+			$('.viewExam').bind('click',function(){
+				alert("+++++++++++++");
+				theData = $(this).val();
+				console.log("data:"+theData);
 				$.ajax({
 					type: "POST",
-					url: "../user/adminLogin",
-                    data: {userNo:theUserNo,userPwd:thePassword},
+					url: "selectid",
+                    data: {userNo:theData},
                     dataType: "json",
-					success: loginSuccess,
+					success: getExamSuccess,
 					error: onError
 				});
-			});
+			});	
 
 	</script>
 </head>
@@ -56,6 +59,7 @@
 </div>
 <!-- End Header -->
 <div class="copyrights">Collect from <a href="http://www.mycodes.net/" ></a></div>
+
 <!-- Container -->
 <div id="container">
 	<div class="shell">	
@@ -80,15 +84,13 @@
 						<div class="p10">密码</div>
 						<input type="password" class="field size6 p10" name="password" id="password"/>
 					</p>
-					
-					<button id="login" name="login" class="login" type="button">登录</button>
-
+					<p>
+					<button id="toLogin" name="toLogin" class="toLogin">登录</button>
+					</p>
 					
 				</div>
 				<!-- End Box -->
-				
-			
-			<div class="cl">&nbsp;</div>			
+						
 		</div>
 		<!-- Main -->
 	</div>
