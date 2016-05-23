@@ -248,7 +248,9 @@ public class AnalysisServiceImpl implements IAnalysisService{
 			//插入有效性信息到数据库
 			String[] effictList = effectiveUser.split(",");
 			for(String effictData:effictList){
-				orderDao.updateEffect(Integer.parseInt(effictData));
+				if(effictData != null && !effictData.equals("")){
+					orderDao.updateEffect(Integer.parseInt(effictData));
+				}
 			}
 			//插入物料类型
 			String[] typeList  = examinationUserAbc.split(",");
